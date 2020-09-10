@@ -2,6 +2,7 @@ package com.agencyBack.entity;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.List;
 
 public class Good implements Serializable {
     private Long id;
