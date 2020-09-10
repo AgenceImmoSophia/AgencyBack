@@ -3,7 +3,7 @@ package com.agencyBack.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Contract implements Serializable {
+public class Contract extends Base {
 	
 	private Long id;
 	private float price;
@@ -19,11 +19,12 @@ public class Contract implements Serializable {
 		this.date = date;
 	}
 
-
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}

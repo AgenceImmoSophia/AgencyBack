@@ -2,10 +2,10 @@ package com.agencyBack.entity;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User extends Base{
 	
 	//ATTRIBUTES 
-	private long id;
+	private Long id;
 	private String name ;
 	private String phoneNumberPers;
 	
@@ -14,13 +14,14 @@ public class User implements Serializable{
     public User() {
     }
     
-    //METHODS 
-   	public long getId() {
+    //METHODS
+	@Override
+   	public Long getId() {
 		return id;
 	}
 
-
-	public void setId(long id) {
+	@Override
+	public void setId(Long id) {
 		this.id = id;
 	}
 

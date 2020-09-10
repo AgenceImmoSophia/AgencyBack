@@ -1,4 +1,6 @@
 package com.agencyBack.service;
 
-public interface GoodService {
+import com.agencyBack.entity.Good;
+
+public interface GoodService extends BaseService<Good>{
 }

@@ -1,5 +1,7 @@
 package com.agencyBack.service;
 
+import javassist.NotFoundException;
+
 import java.util.List;
 
 public interface BaseService<T> {
@@ -16,7 +18,7 @@ public interface BaseService<T> {
      * @param id Object's id
      * @return the object found or throws a NotFoundException
      */
-    T getById(Long id);
+    T getById(Long id) throws NotFoundException;
 
     /**
      * Method that created an object.
@@ -32,12 +34,12 @@ public interface BaseService<T> {
      * @param base the object to be updated
      * @return the updated object.
      */
-    T edit(T base);
+    T edit(T base) throws NotFoundException;
 
     /**
      * Method that deletes an object by it's id.
      * The object must be a child of Base.
      * @param id The id of the object to be deleted.
      */
-    void deleteById(Long id);
+    void deleteById(Long id) throws NotFoundException;
 }

@@ -2,8 +2,9 @@ package com.agencyBack.entity;
 
 import java.io.Serializable;
 
-public class Address implements Serializable{
-	
+public class Address extends Base{
+
+	private Long id;
 	private String city;
 	private String zipcode;
 	private String streetNber;
@@ -12,6 +13,16 @@ public class Address implements Serializable{
 	
 	public Address() {
 		
+	}
+
+	@Override
+	public Long getId() {
+		return null;
+	}
+
+	@Override
+	public void setId(Long id) {
+
 	}
 
 	public String getCity() {

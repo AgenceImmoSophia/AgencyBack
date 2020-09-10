@@ -3,7 +3,7 @@ package com.agencyBack.entity;
 import java.io.Serializable;
 import java.util.List;
 
-public class Client extends User implements Serializable {
+public class Client extends User {
 	
 	//ATTRIBUTES 
 	private List<String> listCode;

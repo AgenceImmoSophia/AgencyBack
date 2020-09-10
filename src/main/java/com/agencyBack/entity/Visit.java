@@ -3,8 +3,9 @@ package com.agencyBack.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class Visit implements Serializable{
-	
+public class Visit extends Base{
+
+	private Long id;
 	private Date date;
 	private Good good;
 	private EstateAgent estateAgent;
@@ -12,6 +13,16 @@ public class Visit implements Serializable{
 	
 	public Visit() {
 		
+	}
+
+	@Override
+	public Long getId() {
+		return id;
+	}
+
+	@Override
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public Date getDate() {
