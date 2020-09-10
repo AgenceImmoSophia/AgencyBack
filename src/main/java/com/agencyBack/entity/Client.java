@@ -1,11 +1,12 @@
 package com.agencyBack.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Client extends User implements Serializable {
 	
 	//ATTRIBUTES 
-	private List<Good.code> listCode;
+	private List<String> listCode;
 	private List<Good> listGood;
 	
 	// CONSTRUCTORS
@@ -14,11 +15,11 @@ public class Client extends User implements Serializable {
 	}
 
 	//METHODS
-	public List<Good.code> getListCode() {
+	public List<String> getListCode() {
 		return listCode;
 	}
 
-	public void setListCode(List<Good.code> listCode) {
+	public void setListCode(List<String> listCode) {
 		this.listCode = listCode;
 	}
 
@@ -29,8 +30,6 @@ public class Client extends User implements Serializable {
 	public void setListGood(List<Good> listGood) {
 		this.listGood = listGood;
 	}
-
-		
 	
 	
 }
