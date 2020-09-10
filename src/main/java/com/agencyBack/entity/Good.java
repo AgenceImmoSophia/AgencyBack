@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-public class Good implements Serializable {
+public class Good extends Base {
     private Long id;
     private String nameOfGood;
     private Owner owner;
@@ -26,10 +26,12 @@ public class Good implements Serializable {
 
     public Good(){}
 
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

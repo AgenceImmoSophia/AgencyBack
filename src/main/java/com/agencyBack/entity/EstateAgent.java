@@ -2,7 +2,7 @@ package com.agencyBack.entity;
 
 import java.io.Serializable;
 
-public class EstateAgent extends Owner implements Serializable{
+public class EstateAgent extends User {
 	
 	//ATTRIBUTES 
 	private String username;

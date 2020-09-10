@@ -3,7 +3,7 @@ package com.agencyBack.entity;
 import java.io.Serializable;
 import java.util.List;
 
-public class Owner extends User implements Serializable {
+public class Owner extends User {
 	
 	//ATTRIBUTES 
 	private String phoneNumberPro;
