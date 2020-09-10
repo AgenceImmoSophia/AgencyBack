@@ -20,10 +20,6 @@ target/m2e-wtp/web-resources/META-INF/maven/com.example/AgencyBack/pom.propertie
 *.iml
 *.ipr
 
-### Eclipse IDEA ###
-.classpath
-.project
-
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
