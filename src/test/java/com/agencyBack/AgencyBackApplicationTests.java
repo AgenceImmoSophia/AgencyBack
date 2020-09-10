@@ -1,4 +1,4 @@
-package com.AgencyBack;
+package com.agencyBack;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
