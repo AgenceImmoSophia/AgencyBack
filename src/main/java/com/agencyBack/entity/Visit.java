@@ -5,7 +5,7 @@ import java.sql.Date;
 
 public class Visit implements Serializable{
 	
-	private Date date
+	private Date date;
 	private Good good;
 	private EstateAgent estateAgent;
 	private Client client;
