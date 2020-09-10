@@ -1,8 +1,9 @@
 package com.agencyBack.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class Good {
+public class Good implements Serializable {
     private Long id;
     private String nameOfGood;
     private Owner owner;
