@@ -2,6 +2,8 @@ package com.agencyBack.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.repository.OwnerRepository;
@@ -11,7 +13,7 @@ import com.agencyBack.service.OwnerService;
 
 import javassist.NotFoundException;
 
-
+@Service
 public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 
 	//ATTRIBUTES 

@@ -4,6 +4,7 @@ import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.repository.OwnerRepository;
 import com.agencyBack.service.GoodService;
+import com.agencyBack.service.OwnerService;
 import com.agencyBack.service.impl.GoodServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +22,7 @@ public class AgencyBackApplication {
 
 //INFO: Used for testing
     @Bean
-    public CommandLineRunner demo(GoodService goodService, OwnerRepository ownerRepository){
+    public CommandLineRunner demo(GoodService goodService, OwnerService ownerService, OwnerRepository ownerRepository){
         return args -> {
         	Good good= new Good();
         	Owner owner = new Owner();

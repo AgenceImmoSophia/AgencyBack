@@ -3,6 +3,8 @@ package com.agencyBack.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.agencyBack.entity.Client;
 import com.agencyBack.entity.Good;
 import com.agencyBack.repository.ClientRepository;
@@ -11,6 +13,7 @@ import com.agencyBack.service.GoodService;
 
 import javassist.NotFoundException;
 
+@Service
 public class ClientServiceImpl extends UserServiceImpl implements ClientService {
 
 	//ATTRIBUTES 

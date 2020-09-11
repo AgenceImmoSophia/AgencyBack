@@ -41,7 +41,7 @@ public class UserRestController {
 	private EstateAgentServiceImpl estateAgentServiceImpl;
 	
 	
-	@GetMapping("/user/{id}")
+	@GetMapping("/{id}")
     public User findUserById(@PathVariable("id") Long id) throws NotFoundException {
         User UserToFind = this.userServiceImpl.getById(id);
         return UserToFind;
@@ -93,7 +93,7 @@ public class UserRestController {
     }
 	
 	@DeleteMapping("/deleteUser/{id}")
-    public void deleteProductById(@PathVariable("id") Long id) throws NotFoundException {
+    public void deleteUserById(@PathVariable("id") Long id) throws NotFoundException {
 //        try {
             this.userServiceImpl.deleteById(id);
 //        } catch (ProductNotFoundException e) {
@@ -118,7 +118,7 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value = "/addGoodList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void addGoodInList(@RequestBody @Valid User user, Good good) throws NotFoundException {
+	public void addGoodInList(@RequestBody @Valid User user, @RequestBody Good good) throws NotFoundException {
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
 			this.ownerServiceImpl.addOwnedGoodInListOwnedGood(owner, good);
@@ -132,11 +132,10 @@ public class UserRestController {
 	}
 	
 	@DeleteMapping("/deleteGoodList")
-    public void deleteGoodFromList(@RequestBody @Valid User user, Good good) throws NotFoundException {
+    public void deleteGoodList(@RequestBody @Valid User user, @RequestBody Good good) throws NotFoundException {
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
-			this.ownerServiceImpl.deleteOwnedGoodFromListOwnedGood(owner, good);
-	        
+			this.ownerServiceImpl.deleteOwnedGoodFromListOwnedGood(owner, good); 
 		}
 		else if (user.getClass() == Client.class) {
 			Client client = (Client) user;
@@ -152,8 +151,8 @@ public class UserRestController {
 		// Gérer exception 
 	}
 	
-	@DeleteMapping("/deleteGoodList")
-    public void deleteCodeFromList(@RequestBody @Valid Client client, String code) {
+	@DeleteMapping("/deleteCodeList")
+    public void deleteCodeList(@RequestBody @Valid Client client, String code) {
 		this.clientServiceImpl.deleteDesiredCodeFromListDesired(client, code);
 		// Gérer exception 
 	}
