@@ -34,10 +34,9 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public void createOwnedGoodInListOwnedGood(Owner owner, Good good) throws NotFoundException {
+	public void addOwnedGoodInListOwnedGood(Owner owner, Good good) throws NotFoundException {
 		Good goodToAdd = this.goodService.getById(good.getId());
 		if (goodToAdd == null) {
-			this.goodService.create(goodToAdd);
 			List<Good> listOwnedGood = owner.getListGood();
 			listOwnedGood.add(goodToAdd);
 			owner.setListGood(listOwnedGood);
