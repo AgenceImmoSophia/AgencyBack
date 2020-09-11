@@ -7,8 +7,6 @@ import javax.persistence.OneToOne;
 import java.sql.Date;
 @Entity
 public class Contract extends Base {
-	
-	// ATTRIBUTES
 	@Id
 	private Long id;
 	private float price;
@@ -19,12 +17,16 @@ public class Contract extends Base {
 	private EstateAgent estateAgent;
 	@OneToOne
 	private Client client;
-	
-	
-	// CONSTRUCTOR
+
 	public Contract() {
 	}
 
+	public Contract(Long id, float price, Date date) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.date = date;
+	}
 
 	@Override
 	public Long getId() {
@@ -75,6 +77,6 @@ public class Contract extends Base {
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
-	
+
+
 }
