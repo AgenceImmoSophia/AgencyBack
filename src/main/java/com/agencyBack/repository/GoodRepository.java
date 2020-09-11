@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface GoodRepository extends BaseRepository<Good> {
-    Good findGoodByName (String name);
+    Good findGoodByNameOfGood (String name);
 }

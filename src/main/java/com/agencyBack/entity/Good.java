@@ -12,10 +12,10 @@ public class Good extends Base {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameOfGood;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="users_id")
+    @ManyToOne
     private Owner owner;
     private Float price;
+    @OneToOne
     private Address address;
     private String code;
     private Float area;
@@ -24,7 +24,9 @@ public class Good extends Base {
     private Date dateAdded;
     private Date dateAvailability;
     private Float revenueCadastral;
+    @OneToMany
     private List<Visit> clientVisit;
+    @OneToOne
     private Contract contract;
     private Float deposit;
     private Float charges;
