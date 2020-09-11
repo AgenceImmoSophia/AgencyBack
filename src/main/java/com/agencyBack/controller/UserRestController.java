@@ -131,7 +131,7 @@ public class UserRestController {
 		// Gérer exception si ni owner et client 
 	}
 	
-	@DeleteMapping("/deleteGoodList}")
+	@DeleteMapping("/deleteGoodList")
     public void deleteGoodFromList(@RequestBody @Valid User user, Good good) throws NotFoundException {
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
@@ -152,7 +152,7 @@ public class UserRestController {
 		// Gérer exception 
 	}
 	
-	@DeleteMapping("/deleteGoodList}")
+	@DeleteMapping("/deleteGoodList")
     public void deleteCodeFromList(@RequestBody @Valid Client client, String code) {
 		this.clientServiceImpl.deleteDesiredCodeFromListDesired(client, code);
 		// Gérer exception 
