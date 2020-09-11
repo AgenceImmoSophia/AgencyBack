@@ -6,19 +6,19 @@ import java.io.Serializable;
 import java.util.List;
 @Entity
 public class Owner extends User {
-	
-	//ATTRIBUTES 
+
+	//ATTRIBUTES
 	private String phoneNumberPro;
+
 	@OneToMany
 	private List<Good> listGood;
-			
-			
+
 	// CONSTRUCTORS
 	public Owner() {
 		super();
 	}
 
-	
+
 	//METHODS
 	public String getPhoneNumberPro() {
 		return phoneNumberPro;
@@ -30,6 +30,7 @@ public class Owner extends User {
 	}
 
 
+
 	public List<Good> getListGood() {
 		return listGood;
 	}
@@ -37,9 +38,7 @@ public class Owner extends User {
 
 	public void setListGood(List<Good> listGood) {
 		this.listGood = listGood;
-	}
-	
-	
-	
+	}	
+
 
 }

@@ -8,12 +8,12 @@ import java.util.List;
 
 @Entity
 public class Client extends User {
-	
-	//ATTRIBUTES 
+
+	//ATTRIBUTES
 //	private List<String> listCode;
 	@OneToMany
 	private List<Good> listGood;
-	
+
 	// CONSTRUCTORS
 	public Client() {
 		super();
@@ -35,6 +35,6 @@ public class Client extends User {
 	public void setListGood(List<Good> listGood) {
 		this.listGood = listGood;
 	}
-	
-	
+
+
 }
