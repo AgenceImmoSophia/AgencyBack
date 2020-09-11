@@ -1,10 +1,13 @@
 package com.agencyBack.entity;
 
-import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
 
+@Entity
 public class Visit extends Base{
-
+	@Id
 	private Long id;
 	private Date date;
 	private Good good;

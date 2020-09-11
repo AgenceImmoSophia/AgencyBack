@@ -1,12 +1,19 @@
 package com.agencyBack.entity;
 
-import java.io.Serializable;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
+@Entity
+@Table (name = "goods")
 public class Good extends Base {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameOfGood;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="users_id")
     private Owner owner;
     private Float price;
     private Address address;

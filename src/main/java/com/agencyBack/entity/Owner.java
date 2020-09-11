@@ -1,13 +1,14 @@
 package com.agencyBack.entity;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
 import java.util.List;
-
+@Entity
 public class Owner extends User {
 	
 	//ATTRIBUTES 
 	private String phoneNumberPro;
-	private List<Good> listGood;
+//	private List<Good> listGood;
 			
 			
 	// CONSTRUCTORS
@@ -27,14 +28,14 @@ public class Owner extends User {
 	}
 
 
-	public List<Good> getListGood() {
-		return listGood;
-	}
-
-
-	public void setListGood(List<Good> listGood) {
-		this.listGood = listGood;
-	}
+//	public List<Good> getListGood() {
+//		return listGood;
+//	}
+//
+//
+//	public void setListGood(List<Good> listGood) {
+//		this.listGood = listGood;
+//	}
 	
 	
 	

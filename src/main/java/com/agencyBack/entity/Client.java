@@ -1,12 +1,17 @@
 package com.agencyBack.entity;
 
-import java.io.Serializable;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import java.util.List;
 
+
+@Entity
 public class Client extends User {
 	
 	//ATTRIBUTES 
-	private List<String> listCode;
+//	private List<String> listCode;
+	@OneToMany(mappedBy ="goods", cascade = CascadeType.ALL)
 	private List<Good> listGood;
 	
 	// CONSTRUCTORS
@@ -15,14 +20,14 @@ public class Client extends User {
 	}
 
 	//METHODS
-	public List<String> getListCode() {
-		return listCode;
-	}
-
-	public void setListCode(List<String> listCode) {
-		this.listCode = listCode;
-	}
-
+//	public List<String> getListCode() {
+//		return listCode;
+//	}
+//
+//	public void setListCode(List<String> listCode) {
+//		this.listCode = listCode;
+//	}
+//
 	public List<Good> getListGood() {
 		return listGood;
 	}

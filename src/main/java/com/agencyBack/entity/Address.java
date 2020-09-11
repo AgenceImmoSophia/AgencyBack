@@ -1,9 +1,11 @@
 package com.agencyBack.entity;
 
-import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity
 public class Address extends Base{
-
+	@Id
 	private Long id;
 	private String city;
 	private String zipcode;

@@ -46,6 +46,12 @@
 			<artifactId>modelmapper-spring</artifactId>
 			<version>2.3.0</version>
 		</dependency>
+		<!-- PostgreSQL -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>42.2.10</version>
+		</dependency>
 	</dependencies>
 
 	<build>

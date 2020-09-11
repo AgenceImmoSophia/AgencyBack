@@ -1,10 +1,12 @@
 package com.agencyBack.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.sql.Date;
-
+@Entity
 public class Contract extends Base {
-	
+	@Id
 	private Long id;
 	private float price;
 	private Date date;
