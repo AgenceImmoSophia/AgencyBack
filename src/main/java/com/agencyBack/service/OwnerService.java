@@ -1,16 +1,19 @@
 package com.agencyBack.service;
 
-import com.agencyBack.entity.Good;
-import com.agencyBack.entity.Owner;
+import java.util.List;
 
-import javassist.NotFoundException;
+import com.agencyBack.entity.Good;
 
 public interface OwnerService extends UserService{
 	
-	public Good findOwnedGoodsByNameFromOwnedGoods(Owner owner,String nameGood);
+	public void findOwnedGoodsByName(String nameGood);
 	
-	public void createOwnedGoodInListOwnedGood(Owner owner, Good good) throws NotFoundException;
+	public Iterable<Good> findAllOwnedGoods();
 	
-	public void deleteOwnedGoodFromListOwnedGood(Owner owner, Good good) throws NotFoundException;
+	public void createOwnedGoodInListOwnedGood(List<Good> listGood, Good good);
+	
+	public void editOwnedGoodFromListOwnedGood(List<Good> listGood, Good good);
+	
+	public void deleteOwnedGoodFromListOwnedGood(List<Good> listGood, Good good);
 
 }
