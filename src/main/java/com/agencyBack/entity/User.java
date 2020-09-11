@@ -1,10 +1,15 @@
 package com.agencyBack.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
 import java.io.Serializable;
-
+@MappedSuperclass
 public class User extends Base{
 	
-	//ATTRIBUTES 
+	//ATTRIBUTES
+	@Id
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;

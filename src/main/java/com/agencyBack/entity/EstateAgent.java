@@ -1,7 +1,8 @@
 package com.agencyBack.entity;
 
+import javax.persistence.Entity;
 import java.io.Serializable;
-
+@Entity
 public class EstateAgent extends User {
 	
 	//ATTRIBUTES 

@@ -1,10 +1,15 @@
 package com.agencyBack.entity;
 
-import java.io.Serializable;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
+@Entity
+@Table (name = "goods")
 public class Good extends Base {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameOfGood;
     private Owner owner;
@@ -17,7 +22,7 @@ public class Good extends Base {
     private Date dateAdded;
     private Date dateAvailability;
     private Float revenueCadastral;
-    private List<Visit> clientVisit;
+//    private List<Visit> clientVisit;
     private Contract contract;
     private Float deposit;
     private Float charges;
@@ -124,13 +129,13 @@ public class Good extends Base {
         this.revenueCadastral = revenueCadastral;
     }
 
-    public List<Visit> getClientVisit() {
-        return clientVisit;
-    }
-
-    public void setClientVisit(List<Visit> clientVisit) {
-        this.clientVisit = clientVisit;
-    }
+//    public List<Visit> getClientVisit() {
+//        return clientVisit;
+//    }
+//
+//    public void setClientVisit(List<Visit> clientVisit) {
+//        this.clientVisit = clientVisit;
+//    }
 
     public Contract getContract() {
         return contract;
