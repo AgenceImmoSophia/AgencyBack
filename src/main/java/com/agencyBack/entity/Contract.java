@@ -2,24 +2,21 @@ package com.agencyBack.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.io.Serializable;
 import java.sql.Date;
 @Entity
 public class Contract extends Base {
+	
+	// ATTRIBUTES
 	@Id
 	private Long id;
 	private float price;
 	private Date date;
 	
+	
+	// CONSTRUCTOR
 	public Contract() {
 	}
-	
-	public Contract(Long id, float price, Date date) {
-		super();
-		this.id = id;
-		this.price = price;
-		this.date = date;
-	}
+
 
 	@Override
 	public Long getId() {
