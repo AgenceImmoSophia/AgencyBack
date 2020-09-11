@@ -1,11 +1,15 @@
 package com.agencyBack.service.impl;
 
+
 import java.util.List;
 
+import com.agencyBack.entity.Client;
 import com.agencyBack.entity.Good;
 import com.agencyBack.repository.ClientRepository;
 import com.agencyBack.service.ClientService;
 import com.agencyBack.service.GoodService;
+
+import javassist.NotFoundException;
 
 public class ClientServiceImpl extends UserServiceImpl implements ClientService {
 
@@ -16,54 +20,66 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 	public ClientServiceImpl(ClientRepository clientRepository) {
 		super(clientRepository);
 	}
+
 	
 	//METHODS
 	@Override
-	public Iterable<String> findAllDesiredCode() {
-		// TODO Auto-generated method stub
-		return null;
+	public void addDesiredCodeToListDesired(Client client, String code) {
+		List<String> listDesiredCode = client.getListCode();
+		listDesiredCode.add(code);
+		client.setListCode(listDesiredCode);
+	}
+
+
+	@Override
+	public void deleteDesiredCodeFromListDesired(Client client, String code) {
+		List<String> listDesiredCode = client.getListCode();
+		listDesiredCode.remove(code);
+		client.setListCode(listDesiredCode);		
 	}
 
 	@Override
-	public void addDesiredCodeToListDesired(List<String> listCode, String code) {
-		// TODO Auto-generated method stub
+	public Good findDesiredGoodsByName(Client client, String nameGood) {
+		Good goodToFind = this.goodService.findGoodByName(nameGood);
+		if (client.getListGood().contains(goodToFind)) { 
+			return goodToFind;
+		}
+		// TODO Exception if null ou if no contains in listOwner
+		return goodToFind;
+	}
+
+	@Override
+	public void addDesiredGoodToListDesired(Client client, Good good) throws NotFoundException {
+		Good goodToAdd = this.goodService.getById(good.getId());
+		if (goodToAdd == null) {
+			List<Good> listDesiredGood = client.getListGood();
+			listDesiredGood.add(goodToAdd);
+			client.setListGood(listDesiredGood);
+		}
+		else {
+		 // TODO gérer ici un good already exist exception
+		}
 		
 	}
 
 	@Override
-	public void editDesiredListCode(List<String> listCode, String code) {
-		// TODO Auto-generated method stub
+	public void deleteDesiredGoodFromListDesired(Client client, Good good) throws NotFoundException {
+		Good goodToDelete = this.goodService.getById(good.getId());
+		if (goodToDelete != null) {
+			List<Good> listDesiredGood = client.getListGood();
+			listDesiredGood.remove(goodToDelete);
+			client.setListGood(listDesiredGood);
+		}
+		else {
+		 // TODO gérer ici un good no exists exception
+		}
 		
 	}
 
-	@Override
-	public void deleteDesiredCodeFromListDesired(List<String> listCode, String code) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void findDesiredGoodsByName(String nameGood) {
-		// TODO Auto-generated method stub
-		
-	}
+	
+	
 
-	@Override
-	public Iterable<Good> findAllDesiredGoods() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addDesiredGoodToListDesired(List<Good> listGood, Good good) {
-		// TODO Auto-generated method stub
 		
-	}
-
-	@Override
-	public void deleteDesiredGoodFromListDesired(List<Good> listGood, Good good) {
-		// TODO Auto-generated method stub
-		
-	}	
 
 }
