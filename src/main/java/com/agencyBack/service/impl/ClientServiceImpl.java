@@ -27,6 +27,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 	public void addDesiredCodeToListDesired(Client client, String code) {
 		List<String> listDesiredCode = client.getListCode();
 		listDesiredCode.add(code);
+		client.setListCode(listDesiredCode);
 	}
 
 
@@ -34,7 +35,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 	public void deleteDesiredCodeFromListDesired(Client client, String code) {
 		List<String> listDesiredCode = client.getListCode();
 		listDesiredCode.remove(code);
-		
+		client.setListCode(listDesiredCode);		
 	}
 
 	@Override
@@ -51,9 +52,9 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 	public void addDesiredGoodToListDesired(Client client, Good good) throws NotFoundException {
 		Good goodToAdd = this.goodService.getById(good.getId());
 		if (goodToAdd == null) {
-			this.goodService.create(goodToAdd);
 			List<Good> listDesiredGood = client.getListGood();
 			listDesiredGood.add(goodToAdd);
+			client.setListGood(listDesiredGood);
 		}
 		else {
 		 // TODO gérer ici un good already exist exception
@@ -67,6 +68,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 		if (goodToDelete != null) {
 			List<Good> listDesiredGood = client.getListGood();
 			listDesiredGood.remove(goodToDelete);
+			client.setListGood(listDesiredGood);
 		}
 		else {
 		 // TODO gérer ici un good no exists exception

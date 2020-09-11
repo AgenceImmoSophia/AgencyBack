@@ -40,6 +40,7 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 			this.goodService.create(goodToAdd);
 			List<Good> listOwnedGood = owner.getListGood();
 			listOwnedGood.add(goodToAdd);
+			owner.setListGood(listOwnedGood);
 		}
 		else {
 		 // TODO gérer ici un good already exist exception
@@ -52,6 +53,7 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 		if (goodToDelete != null) {
 			List<Good> listOwnedGood = owner.getListGood();
 			listOwnedGood.remove(goodToDelete);
+			owner.setListGood(listOwnedGood);
 		}
 		else {
 		 // TODO gérer ici un good no exists exception
