@@ -16,8 +16,13 @@ import javassist.NotFoundException;
 public class ContractRestController {
 	
 	// ATTRIBUTES
-	private ContractServiceImpl contractService;
-	
+
+	private final ContractServiceImpl contractService;
+
+	public ContractRestController(ContractServiceImpl contractService) {
+		this.contractService = contractService;
+	}
+
 	@PostMapping(value = "/createContract")
 	public Contract createContract (@RequestBody Contract newContract) {
 		return this.contractService.create(newContract);

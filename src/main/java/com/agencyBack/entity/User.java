@@ -1,9 +1,6 @@
 package com.agencyBack.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 @MappedSuperclass
 public class User extends Base{
@@ -13,6 +10,7 @@ public class User extends Base{
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;
+	@OneToOne
 	private Address address;
 	
 	

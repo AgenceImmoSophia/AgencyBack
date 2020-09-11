@@ -2,6 +2,8 @@ package com.agencyBack.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.sql.Date;
 @Entity
 public class Contract extends Base {
@@ -11,8 +13,11 @@ public class Contract extends Base {
 	private Long id;
 	private float price;
 	private Date date;
+	@OneToOne
 	private Good good;
+	@OneToOne
 	private EstateAgent estateAgent;
+	@OneToOne
 	private Client client;
 	
 	
