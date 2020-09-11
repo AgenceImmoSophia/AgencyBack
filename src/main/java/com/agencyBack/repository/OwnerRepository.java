@@ -5,6 +5,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface OwnerRepository extends BaseRepository<Owner>{
+public interface OwnerRepository extends UserRepository{
 
 }

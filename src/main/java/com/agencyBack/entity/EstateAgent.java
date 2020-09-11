@@ -4,11 +4,11 @@ import javax.persistence.Entity;
 import java.io.Serializable;
 @Entity
 public class EstateAgent extends User {
-	
-	//ATTRIBUTES 
+
+	//ATTRIBUTES
 	private String username;
 	private String password;
-			
+
 	// CONSTRUCTORS
 	public EstateAgent() {
 		super();
@@ -31,7 +31,7 @@ public class EstateAgent extends User {
 		this.password = password;
 	}
 
-	
-	
+
+
 
 }
