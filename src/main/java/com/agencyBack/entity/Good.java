@@ -12,6 +12,8 @@ public class Good extends Base {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameOfGood;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="users_id")
     private Owner owner;
     private Float price;
     private Address address;
@@ -22,7 +24,7 @@ public class Good extends Base {
     private Date dateAdded;
     private Date dateAvailability;
     private Float revenueCadastral;
-//    private List<Visit> clientVisit;
+    private List<Visit> clientVisit;
     private Contract contract;
     private Float deposit;
     private Float charges;
@@ -129,13 +131,13 @@ public class Good extends Base {
         this.revenueCadastral = revenueCadastral;
     }
 
-//    public List<Visit> getClientVisit() {
-//        return clientVisit;
-//    }
-//
-//    public void setClientVisit(List<Visit> clientVisit) {
-//        this.clientVisit = clientVisit;
-//    }
+    public List<Visit> getClientVisit() {
+        return clientVisit;
+    }
+
+    public void setClientVisit(List<Visit> clientVisit) {
+        this.clientVisit = clientVisit;
+    }
 
     public Contract getContract() {
         return contract;
