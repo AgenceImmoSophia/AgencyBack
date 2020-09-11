@@ -7,15 +7,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class GoodServiceImpl extends BaseServiceImpl<Good> implements GoodService {
+
     private GoodRepository goodRepository;
 
     public GoodServiceImpl(GoodRepository goodRepository) {
         super(goodRepository, new Good());
+        this.goodRepository = goodRepository;
     }
 
     @Override
     public Good findGoodByName(String name) {
-        Good foundGood= this.goodRepository.findGoodByName(name);
+        Good foundGood= this.goodRepository.findGoodByNameOfGood(name);
         return foundGood;
     }
 }

@@ -3,6 +3,7 @@ package com.agencyBack.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import java.sql.Date;
 
 @Entity
@@ -10,8 +11,11 @@ public class Visit extends Base{
 	@Id
 	private Long id;
 	private Date date;
+	@ManyToOne
 	private Good good;
+	@ManyToOne
 	private EstateAgent estateAgent;
+	@ManyToOne
 	private Client client;
 	
 	public Visit() {

@@ -11,7 +11,7 @@ public class Client extends User {
 
 	//ATTRIBUTES
 //	private List<String> listCode;
-	@OneToMany(mappedBy ="goods", cascade = CascadeType.ALL)
+	@OneToMany
 	private List<Good> listGood;
 
 	// CONSTRUCTORS
