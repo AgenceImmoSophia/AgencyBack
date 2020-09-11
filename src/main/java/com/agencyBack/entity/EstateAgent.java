@@ -1,7 +1,5 @@
 package com.agencyBack.entity;
 
-import java.io.Serializable;
-
 public class EstateAgent extends User {
 	
 	//ATTRIBUTES 

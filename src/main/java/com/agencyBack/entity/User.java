@@ -8,6 +8,7 @@ public class User extends Base{
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;
+	private Address address;
 	
 	
 	// CONSTRUCTORS
@@ -43,11 +44,14 @@ public class User extends Base{
 		this.phoneNumberPers = phoneNumberPers;
 	}
 
-	
-	
-    
-    
-    
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+   
     
 	
 	

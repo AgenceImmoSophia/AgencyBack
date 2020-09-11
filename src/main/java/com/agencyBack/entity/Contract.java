@@ -8,6 +8,9 @@ public class Contract extends Base {
 	private Long id;
 	private float price;
 	private Date date;
+	private Good good;
+	private EstateAgent estateAgent;
+	private Client client;
 	
 	public Contract() {
 	}
@@ -44,6 +47,30 @@ public class Contract extends Base {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
 
+	public Good getGood() {
+		return good;
+	}
+
+	public void setGood(Good good) {
+		this.good = good;
+	}
+
+	public EstateAgent getEstateAgent() {
+		return estateAgent;
+	}
+
+	public void setEstateAgent(EstateAgent estateAgent) {
+		this.estateAgent = estateAgent;
+	}
+
+	public Client getClient() {
+		return client;
+	}
+
+	public void setClient(Client client) {
+		this.client = client;
+	}
+	
+	
 }
