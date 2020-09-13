@@ -12,6 +12,7 @@ public class Good extends Base {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameOfGood;
+    private TypeOfGood typeOfGood;
     @ManyToOne
     private Owner owner;
     private Float price;
@@ -180,4 +181,12 @@ public class Good extends Base {
     public void setState(String state) {
         this.state = state;
     }
+
+	public TypeOfGood getTypeOfGood() {
+		return typeOfGood;
+	}
+
+	public void setTypeOfGood(TypeOfGood typeOfGood) {
+		this.typeOfGood = typeOfGood;
+	}
 }
