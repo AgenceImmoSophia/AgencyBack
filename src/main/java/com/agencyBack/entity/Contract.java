@@ -1,12 +1,11 @@
 package com.agencyBack.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.sql.Date;
 @Entity
 public class Contract extends Base {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private float price;
 	private Date date;

@@ -1,14 +1,13 @@
 package com.agencyBack.entity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
 public class Visit extends Base{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date date;
 	@ManyToOne
