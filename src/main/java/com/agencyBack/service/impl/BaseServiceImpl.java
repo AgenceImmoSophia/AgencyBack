@@ -33,7 +33,7 @@ public class BaseServiceImpl<T extends Base> implements BaseService <T>{
     public T getById(Long id) throws NotFoundException {
         Optional<T> base = repository.findById(id);
         if (!base.isPresent())
-            throw new NotFoundException(baseObject.getClass().getName() + " not found with id: " + id);
+            throw new NotFoundException(baseObject.getClass().getName().substring((baseObject.getClass().getName().lastIndexOf("."))).substring(1) + " not found with id: " + id);
         return base.get();
     }
 
