@@ -34,7 +34,9 @@ public class Good extends Base {
     private Boolean isFurnished;
     private String state;
 
-    public Good(){}
+    public Good(){
+    }
+
 
     @Override
     public Long getId() {
@@ -189,4 +191,6 @@ public class Good extends Base {
 	public void setTypeOfGood(TypeOfGood typeOfGood) {
 		this.typeOfGood = typeOfGood;
 	}
+
+
 }

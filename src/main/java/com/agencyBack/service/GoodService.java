@@ -4,4 +4,5 @@ import com.agencyBack.entity.Good;
 
 public interface GoodService extends BaseService<Good>{
     Good findGoodByName(String name);
+    void generateCode(Good good);
 }
