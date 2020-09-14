@@ -9,7 +9,7 @@ import java.util.List;
 @Table (name = "goods")
 public class Good extends Base {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameOfGood;
     private TypeOfGood typeOfGood;
