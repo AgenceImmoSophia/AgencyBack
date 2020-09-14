@@ -2,7 +2,10 @@ package com.agencyBack.entity;
 
 public enum TypeOfGood {
 	HOUSE,
-	APARTMENT
-	
+	APARTMENT,
+	STUDIOS,
+	STORAGE,
+	OFFICE,
+	SHOP
 
 }
