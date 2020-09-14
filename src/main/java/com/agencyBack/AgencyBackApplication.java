@@ -1,9 +1,6 @@
 package com.agencyBack;
 
-import com.agencyBack.entity.Contract;
-import com.agencyBack.entity.Good;
-import com.agencyBack.entity.Owner;
-import com.agencyBack.entity.Visit;
+import com.agencyBack.entity.*;
 import com.agencyBack.repository.OwnerRepository;
 import com.agencyBack.service.ContractService;
 import com.agencyBack.service.GoodService;
@@ -32,8 +29,12 @@ public class AgencyBackApplication {
         	Visit visit = new Visit();
 					Contract contract = new Contract();
         	owner.setName("Ismail");
+        	good.setArea(55f);
         	good.setPrice(151351f);
+        	good.setStatus(Status.TOSELL);
+        	good.setTypeOfGood(TypeOfGood.APARTMENT);
         	good.setOwner(owner);
+        	goodService.generateCode(good);
         	owner.setId(1l);
         	visit.setId(1l);
         	visit.setGood(good);

@@ -31,6 +31,7 @@ public class GoodRestController {
     @PostMapping(value = "good", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Good> createGood(@RequestBody Good good){
         this.goodService.create(good);
+        this.goodService.generateCode(good);
         return new ResponseEntity<>(good, HttpStatus.CREATED);
     }
 
