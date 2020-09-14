@@ -1,11 +1,23 @@
 package com.agencyBack.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
-import java.io.Serializable;
-@MappedSuperclass
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
+//@MappedSuperclass
+
+@JsonTypeInfo(
+		  use = JsonTypeInfo.Id.NAME,
+		  include = JsonTypeInfo.As.PROPERTY, property = "type"
+		)
+@JsonSubTypes({
+    @JsonSubTypes.Type(value = Owner.class, name = "owner"),
+    @JsonSubTypes.Type(value = Client.class, name = "client"),
+    @JsonSubTypes.Type(value = EstateAgent.class, name = "estateAgent")
+})
 public class User extends Base{
 	
 	//ATTRIBUTES
@@ -13,6 +25,7 @@ public class User extends Base{
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;
+	@OneToOne
 	private Address address;
 	
 	

@@ -1,9 +1,10 @@
 package com.agencyBack.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,9 +13,9 @@ public class Client extends User {
 
 	//ATTRIBUTES
 	@ElementCollection
-	private List<String> listCode;
+	private List<String> listCode = new ArrayList<String>();
 	@OneToMany
-	private List<Good> listGood;
+	private List<Good> listGood = new ArrayList<Good>();
 	
 
 	// CONSTRUCTORS

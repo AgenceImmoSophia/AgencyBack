@@ -32,13 +32,21 @@ import javassist.NotFoundException;
 public class UserRestController {
 	
 	@Autowired
-	private UserServiceImpl userServiceImpl;
-	@Autowired
-	private OwnerServiceImpl ownerServiceImpl;
-	@Autowired
-	private ClientServiceImpl clientServiceImpl;
-	@Autowired
-	private EstateAgentServiceImpl estateAgentServiceImpl;
+	private  UserServiceImpl userServiceImpl;
+//	@Autowired
+//	private final OwnerServiceImpl ownerServiceImpl;
+////	@Autowired
+//	private final ClientServiceImpl clientServiceImpl;
+////	@Autowired
+//	private final EstateAgentServiceImpl estateAgentServiceImpl;
+	
+//	//CONSTRUTOR
+//	public UserRestController (UserServiceImpl userService, OwnerServiceImpl ownerService, ClientServiceImpl clientService, EstateAgentServiceImpl estateAgentService) {
+//		this.userServiceImpl = userService;
+//		this.ownerServiceImpl = ownerService;
+//		this.clientServiceImpl = clientService;
+//		this.estateAgentServiceImpl = estateAgentService;
+//	}
 	
 	
 	@GetMapping("/{id}")
@@ -101,8 +109,8 @@ public class UserRestController {
 //        }
     }
 	
-	@GetMapping("/myGood")
-	public Good findGoodByNameFromList (@RequestBody @Valid User user, String nameGood) {
+	@GetMapping("/myGood/{namegood}")
+	public Good findGoodByNameFromList (@RequestBody @Valid User user, @PathVariable("namegood") String nameGood) {
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
 			Good goodToFind = this.ownerServiceImpl.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);

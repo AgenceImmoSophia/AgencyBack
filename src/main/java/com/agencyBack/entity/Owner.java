@@ -2,7 +2,8 @@ package com.agencyBack.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
+
+import java.util.ArrayList;
 import java.util.List;
 @Entity
 public class Owner extends User {
@@ -11,7 +12,7 @@ public class Owner extends User {
 	private String phoneNumberPro;
 
 	@OneToMany
-	private List<Good> listGood;
+	private List<Good> listGood = new ArrayList<Good>();
 
 	// CONSTRUCTORS
 	public Owner() {

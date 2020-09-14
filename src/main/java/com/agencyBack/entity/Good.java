@@ -3,6 +3,7 @@ package com.agencyBack.entity;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,7 +26,7 @@ public class Good extends Base {
     private Date dateAvailability;
     private Float revenueCadastral;
     @OneToMany
-    private List<Visit> clientVisit;
+    private List<Visit> clientVisit = new ArrayList<Visit>();
     @OneToOne
     private Contract contract;
     private Float deposit;
