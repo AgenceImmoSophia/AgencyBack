@@ -86,92 +86,92 @@ public class AgencyBackApplication {
 //      };
 //  }
 	
-//	@Bean
-//  public CommandLineRunner demo(AddressService addressService, EstateAgentService estateAgentService, EstateAgentRepository ear, ClientRepository cr, OwnerRepository or, ClientService clientService, OwnerService ownerService, GoodService goodService, ContractService contractService){
-//      return args -> {
-//      	EstateAgent agent = new EstateAgent();
-//      	agent.setName("Roger");
-//      	agent.setPhoneNumberPers("0706060606");
-////      	Address address2 = new Address();
-////      	address2.setId(1l);
-////      	address2.setCountry("France");
-////      	agent.setAddress(address2);
-//      	agent.setUsername("rogerAgent1");
-//      	agent.setPassword("superMotDePasse");
-////      	addressService.create(address2);
-//      	
-//      	Client client = new Client();
-//    	client.setName("Michel");
-//    	client.setPhoneNumberPers("0606060606");
-//    	
-//    	Owner owner = new Owner();
-//    	owner.setName("Bob");
-//    	
-//    	EstateAgentService eas = new EstateAgentServiceImpl(ear);
-//    	eas.create(agent);
-//    	
-//    	ClientService cs = new ClientServiceImpl(cr);
-//    	cs.create(client);
-//    	
-//    	OwnerService os = new OwnerServiceImpl(or);
-//    	os.create(owner);
-    	
-//    	estateAgentService.create(agent);
-//    	clientService.create(client);
-//    	ownerService.create(owner);
-    	
-//    	Good good= new Good();
-//    	goodService.create(good);
-//    	
-//    	Contract contract = new Contract();
-//    	contract.setId(1l);
-//    	contract.setPrice(15f);
-//    	contract.setClient(client);
-//    	contract.setEstateAgent(agent);
-//    	contract.setGood(good);
-//    	contractService.create(contract);
-//    	
-//    	good.setNameOfGood("maison");
-//    	good.setPrice(151361f);
-//    	good.setOwner(owner);
-//    	Address address3 = new Address();
-//      	address3.setId(2l);
-//      	address3.setCountry("France");
-//      	good.setAddress(address3);
-//    	addressService.create(address3);
-//    	good.setContract(contract);
-//    	goodService.create(good);
-//    	
-//    	Good good2 = new Good();
-//    	good2.setId(2l);
-//    	goodService.create(good2);
-//    	
-//    	List<Good> listGood = client.getListGood();
-//    	listGood.add(good);
-////    	listGood.add(good2);
-//    	client.setListGood(listGood); 
-//    	List<String> listCode = client.getListCode();
-//    	listCode.add("1515");
-//    	client.setListCode(listCode);
-//    	clientService.create(client);
-//   	
-//    	List<Good> listOwnGood = owner.getListGood();
-//    	listOwnGood.add(good);
-//    	owner.setListGood(listOwnGood);
-//    	ownerService.create(owner);
-    	
-//    	Visit visit = new Visit();
-//      	visit.setId(1l);
-//      	visit.setGood(good);
-//      	visit.setClient(client);
-//      	visit.setEstateAgent(agent);
-//      	visitService.create(visit);
-//      	
-//      	List<Visit> listVisit = good.getClientVisit();
-//      	listVisit.add(visit);
-//      	good.setClientVisit(listVisit);
-//      	goodService.create(good);
+	@Bean
+	public CommandLineRunner demo(AddressService addressService, EstateAgentService estateAgentService, EstateAgentRepository ear, ClientRepository cr, OwnerRepository or, ClientService clientService, OwnerService ownerService, GoodService goodService, ContractService contractService, VisitService visitService){
+      return args -> {
+      	EstateAgent agent = new EstateAgent();
+      	agent.setName("Roger");
+      	agent.setPhoneNumberPers("0706060606");
+      	Address address2 = new Address();
+      	address2.setId(1l);
+      	address2.setCountry("France");
+      	agent.setAddress(address2);
+      	agent.setUsername("rogerAgent1");
+      	agent.setPassword("superMotDePasse");
+      	addressService.create(address2);
       	
-//      };
-//  }
+      	Client client = new Client();
+    	client.setName("Michel");
+    	client.setPhoneNumberPers("0606060606");
+    	
+    	Owner owner = new Owner();
+    	owner.setName("Bob");
+    	
+    	EstateAgentService eas = new EstateAgentServiceImpl(ear);
+    	eas.create(agent);
+    	
+    	ClientService cs = new ClientServiceImpl(cr);
+    	cs.create(client);
+    	
+    	OwnerService os = new OwnerServiceImpl(or);
+    	os.create(owner);
+    	
+    	estateAgentService.create(agent);
+    	clientService.create(client);
+    	ownerService.create(owner);
+    	
+    	Good good= new Good();
+    	goodService.create(good);
+    	
+    	Contract contract = new Contract();
+    	contract.setId(1l);
+    	contract.setPrice(15f);
+    	contract.setClient(client);
+    	contract.setEstateAgent(agent);
+    	contract.setGood(good);
+    	contractService.create(contract);
+    	
+    	good.setNameOfGood("maison");
+    	good.setPrice(151361f);
+    	good.setOwner(owner);
+    	Address address3 = new Address();
+      	address3.setId(2l);
+      	address3.setCountry("France");
+     	good.setAddress(address3);
+    	addressService.create(address3);
+    	good.setContract(contract);
+    	goodService.create(good);
+    	
+    	Good good2 = new Good();
+    	good2.setId(2l);
+    	goodService.create(good2);
+    	
+    	List<Good> listGood = client.getListGood();
+    	listGood.add(good);
+    	listGood.add(good2);
+    	client.setListGood(listGood); 
+    	List<String> listCode = client.getListCode();
+    	listCode.add("1515");
+    	client.setListCode(listCode);
+    	clientService.create(client);
+   	
+    	List<Good> listOwnGood = owner.getListGood();
+    	listOwnGood.add(good);
+    	owner.setListGood(listOwnGood);
+    	ownerService.create(owner);
+    	
+    	Visit visit = new Visit();
+      	visit.setId(1l);
+      	visit.setGood(good);
+      	visit.setClient(client);
+      	visit.setEstateAgent(agent);
+      	visitService.create(visit);
+      	
+      	List<Visit> listVisit = good.getClientVisit();
+      	listVisit.add(visit);
+      	good.setClientVisit(listVisit);
+      	goodService.create(good);
+      	
+      };
+  }
 }

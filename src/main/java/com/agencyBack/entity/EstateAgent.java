@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue(value="EstateAgent")
-public class EstateAgent extends User {
+public class EstateAgent extends Users {
 
 	//ATTRIBUTES
 	private String username;

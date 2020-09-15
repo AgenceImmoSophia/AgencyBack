@@ -15,7 +15,7 @@ import javax.persistence.OneToOne;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="ROLE", discriminatorType=DiscriminatorType.STRING)
-public class User extends Base{
+public class Users extends Base{
 	
 	//ATTRIBUTES
 	@Id
@@ -28,7 +28,7 @@ public class User extends Base{
 	
 	
 	// CONSTRUCTORS
-    public User() {
+    public Users() {
     }
     
     //METHODS

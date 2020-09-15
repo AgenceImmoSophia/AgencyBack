@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue(value="Owner")
-public class Owner extends User {
+public class Owner extends Users {
 
 	//ATTRIBUTES
 	private String phoneNumberPro;

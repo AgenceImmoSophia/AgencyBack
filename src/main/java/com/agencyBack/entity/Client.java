@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue(value="Client")
-public class Client extends User {
+public class Client extends Users {
 
 	//ATTRIBUTES
 	@ElementCollection
