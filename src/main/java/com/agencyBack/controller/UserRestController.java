@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.agencyBack.entity.Client;
@@ -58,20 +61,37 @@ public class UserRestController {
     }
 	
 	
-	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Users> createUser(@RequestBody Users user) {
+	@PostMapping(value = "/create/{role}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public <T extends Users> ResponseEntity<Users> createUser(@RequestBody T user, @PathVariable("role")String role, @Nullable@RequestAttribute("phoneNumberPro")String phoneNumberPro, @Nullable@RequestAttribute String username, @Nullable@RequestAttribute String password) {
 //        try {
-//			if ( role.equals("owner") ) {
-//				this.ownerServiceImpl.create(user);
-//			}
-//			else if ( role.equals("client") ) {
-//				this.clientServiceImpl.create(user);
-//			}
-//			else if ( role.equals("agent") ) {
-//				this.estateAgentServiceImpl.create(user);
-//			}
-		
-			this.userServiceImpl.create(user);
+		System.out.println(user.getClass());
+			if ( role.equals("owner") ) {
+				Owner owner = new Owner();
+				owner.setId(user.getId());
+				owner.setName(user.getName());
+				owner.setAddress(user.getAddress());
+				owner.setPhoneNumberPers(user.getPhoneNumberPers());
+				owner.setPhoneNumberPro(phoneNumberPro);
+				this.ownerServiceImpl.create(owner);
+			}
+			else if ( role.equals("client") ) {
+				Client client = new Client();
+				client.setId(user.getId());
+				client.setName(user.getName());
+				client.setPhoneNumberPers(user.getPhoneNumberPers());
+				this.clientServiceImpl.create(client);
+			}
+			else if ( role.equals("agent") ) {
+				EstateAgent estateAgent = new EstateAgent();
+				estateAgent.setId(user.getId());
+				estateAgent.setName(user.getName());
+				estateAgent.setPhoneNumberPers(user.getPhoneNumberPers());
+				estateAgent.setUsername(username);
+				estateAgent.setPassword(password);
+				
+				this.estateAgentServiceImpl.create(user);
+			}		
+			
 		
 			return new ResponseEntity<>(user, HttpStatus.CREATED);
 			
