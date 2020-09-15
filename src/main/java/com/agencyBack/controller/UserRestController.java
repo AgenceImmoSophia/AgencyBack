@@ -1,7 +1,5 @@
 package com.agencyBack.controller;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -60,24 +58,22 @@ public class UserRestController {
     }
 	
 	
-	@PostMapping(value = "/create/{role}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createUser(@RequestBody @Valid Owner owner, @RequestBody @Valid Client client, @RequestBody @Valid EstateAgent agent, @PathVariable("role") String role) {
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Users> createUser(@RequestBody Users user) {
 //        try {
-			if ( role.equals("owner") ) {
-				this.ownerServiceImpl.create(owner);
-				return new ResponseEntity<>(owner, HttpStatus.CREATED);
-			}
-			else if ( role.equals("client")) {
-				this.clientServiceImpl.create(client);
-				return new ResponseEntity<>(client, HttpStatus.CREATED);
-			}
-			else if ( role.equals("agent")) {
-				this.estateAgentServiceImpl.create(agent);
-				return new ResponseEntity<>(agent, HttpStatus.CREATED);
-			}
-			else {
-				return ResponseEntity.status(HttpStatus.CREATED).build();
-			}
+//			if ( role.equals("owner") ) {
+//				this.ownerServiceImpl.create(user);
+//			}
+//			else if ( role.equals("client") ) {
+//				this.clientServiceImpl.create(user);
+//			}
+//			else if ( role.equals("agent") ) {
+//				this.estateAgentServiceImpl.create(user);
+//			}
+		
+			this.userServiceImpl.create(user);
+		
+			return new ResponseEntity<>(user, HttpStatus.CREATED);
 			
 //        } catch (UserAlreadyExistException e) {
 //            return ResponseEntity.status(HttpStatus.CONFLICT).build();
