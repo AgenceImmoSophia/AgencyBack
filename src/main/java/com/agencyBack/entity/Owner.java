@@ -1,11 +1,14 @@
 package com.agencyBack.entity;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @Entity
+@DiscriminatorValue(value="Owner")
 public class Owner extends User {
 
 	//ATTRIBUTES

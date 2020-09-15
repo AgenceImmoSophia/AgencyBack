@@ -1,8 +1,11 @@
 package com.agencyBack.entity;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import java.io.Serializable;
+
 @Entity
+@DiscriminatorValue(value="EstateAgent")
 public class EstateAgent extends User {
 
 	//ATTRIBUTES

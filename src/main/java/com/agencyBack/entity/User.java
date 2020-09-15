@@ -1,27 +1,25 @@
 package com.agencyBack.entity;
 
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-//@MappedSuperclass
 
-@JsonTypeInfo(
-		  use = JsonTypeInfo.Id.NAME,
-		  include = JsonTypeInfo.As.PROPERTY, property = "type"
-		)
-@JsonSubTypes({
-    @JsonSubTypes.Type(value = Owner.class, name = "owner"),
-    @JsonSubTypes.Type(value = Client.class, name = "client"),
-    @JsonSubTypes.Type(value = EstateAgent.class, name = "estateAgent")
-})
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="ROLE", discriminatorType=DiscriminatorType.STRING)
 public class User extends Base{
 	
 	//ATTRIBUTES
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;

@@ -1,5 +1,6 @@
 package com.agencyBack.entity;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -9,6 +10,7 @@ import java.util.List;
 
 
 @Entity
+@DiscriminatorValue(value="Client")
 public class Client extends User {
 
 	//ATTRIBUTES
