@@ -21,7 +21,6 @@ public class Users extends Base{
 	//ATTRIBUTES
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-//	@Column(nullable = true)
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;

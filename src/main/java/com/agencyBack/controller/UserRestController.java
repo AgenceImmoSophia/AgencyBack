@@ -24,10 +24,12 @@ import com.agencyBack.service.impl.EstateAgentServiceImpl;
 import com.agencyBack.service.impl.OwnerServiceImpl;
 import com.agencyBack.service.impl.UserServiceImpl;
 
+import javassist.NotFoundException;
+
 
 @RestController
-@RequestMapping("/user")
-public class UserRestController<T extends User> {
+@RequestMapping("/users")
+public class UserRestController {
 	
 	@Autowired
 	private  UserServiceImpl userServiceImpl;
@@ -38,48 +40,53 @@ public class UserRestController<T extends User> {
 	@Autowired
 	private EstateAgentServiceImpl estateAgentServiceImpl;
 	
-	private final UserServiceImpl<T> userServiceImpl;
 	
-	public UserRestController(UserServiceImpl<T> userServiceImpl) {
+	public UserRestController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
 	}
 	
 
 	
-//	@GetMapping("/{id}")
-//    public User findUserById(@PathVariable("id") Long id) throws NotFoundException {
-//        User UserToFind = this.userServiceImpl.getById(id);
-//        return UserToFind;
-//    }
+	@GetMapping("/{id}")
+    public Users findUserById(@PathVariable("id") Long id) throws NotFoundException {
+        Users UserToFind = this.userServiceImpl.getById(id);
+        return UserToFind;
+    }
 
     
-//    @GetMapping("/allUsers")
-//    public Iterable<User> findAllUsers() {
-//        return this.userServiceImpl.getAll();
-//    }
+    @GetMapping("/allUsers")
+    public Iterable<Users> findAllUsers() {
+        return this.userServiceImpl.getAll();
+    }
 	
 	
-//	@PostMapping(value = "/createUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Object> createUser(@RequestBody @Valid User user) {
-////        try {
-//			if ( user.getClass() == Owner.class ) {
-//				this.ownerServiceImpl.create(user);
-//			}
-//			else if ( user.getClass() == Client.class ) {
-//				this.clientServiceImpl.create(user);
-//			}
-//			else if ( user.getClass() == EstateAgent.class) {
-//				this.estateAgentServiceImpl.create(user);
-//			}
-//            return ResponseEntity.status(HttpStatus.CREATED).build();
-////        } catch (UserAlreadyExistException e) {
-////            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-////        }
-//    }
-//	
-//	
-//
-//
+	@PostMapping(value = "/create/{role}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> createUser(@RequestBody @Valid Owner owner, @RequestBody @Valid Client client, @RequestBody @Valid EstateAgent agent, @PathVariable("role") String role) {
+//        try {
+			if ( role.equals("owner") ) {
+				this.ownerServiceImpl.create(owner);
+				return new ResponseEntity<>(owner, HttpStatus.CREATED);
+			}
+			else if ( role.equals("client")) {
+				this.clientServiceImpl.create(client);
+				return new ResponseEntity<>(client, HttpStatus.CREATED);
+			}
+			else if ( role.equals("agent")) {
+				this.estateAgentServiceImpl.create(agent);
+				return new ResponseEntity<>(agent, HttpStatus.CREATED);
+			}
+			else {
+				return ResponseEntity.status(HttpStatus.CREATED).build();
+			}
+			
+//        } catch (UserAlreadyExistException e) {
+//            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+//        }
+    }
+	
+	
+
+
 //	@PostMapping(value = "/editUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //    public void editUserById(@RequestBody @Valid User user) throws NotFoundException {
 ////        try {
