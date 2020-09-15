@@ -39,16 +39,16 @@ public class AgencyBackApplication {
 
 
 //INFO: Used for testing
-    @Bean
-    public CommandLineRunner demo(OwnerService ownerService, OwnerRepository ownerRepository){
-        return args -> {
-        	Owner owner = new Owner();
-        	owner.setName("Booooob");
-
-        	ownerRepository.save(owner);
-
-        };
-    }
+//    @Bean
+//    public CommandLineRunner demo(OwnerService ownerService, OwnerRepository ownerRepository){
+//        return args -> {
+//        	Owner owner = new Owner();
+//        	owner.setName("Booooob");
+//
+//        	ownerRepository.save(owner);
+//
+//        };
+//    }
 //	@Bean
 //    public CommandLineRunner demo(AddressService addressService, ClientService clientService, ClientRepository clientRepository){
 //        return args -> {
@@ -87,7 +87,7 @@ public class AgencyBackApplication {
 //  }
 	
 	@Bean
-	public CommandLineRunner demo(AddressService addressService, EstateAgentService estateAgentService, EstateAgentRepository ear, ClientRepository cr, OwnerRepository or, ClientService clientService, OwnerService ownerService, GoodService goodService, ContractService contractService, VisitService visitService){
+	public CommandLineRunner demo(AddressService addressService, EstateAgentService estateAgentService, EstateAgentRepository ear, ClientRepository cr, OwnerRepository or, ClientService clientService, OwnerService ownerService, GoodService goodService, ContractService contractService){
       return args -> {
       	EstateAgent agent = new EstateAgent();
       	agent.setName("Roger");
@@ -116,9 +116,6 @@ public class AgencyBackApplication {
     	OwnerService os = new OwnerServiceImpl(or);
     	os.create(owner);
     	
-    	estateAgentService.create(agent);
-    	clientService.create(client);
-    	ownerService.create(owner);
     	
     	Good good= new Good();
     	goodService.create(good);
@@ -153,24 +150,24 @@ public class AgencyBackApplication {
     	List<String> listCode = client.getListCode();
     	listCode.add("1515");
     	client.setListCode(listCode);
-    	clientService.create(client);
+//    	clientService.create(client);
    	
     	List<Good> listOwnGood = owner.getListGood();
     	listOwnGood.add(good);
     	owner.setListGood(listOwnGood);
-    	ownerService.create(owner);
-    	
-    	Visit visit = new Visit();
-      	visit.setId(1l);
-      	visit.setGood(good);
-      	visit.setClient(client);
-      	visit.setEstateAgent(agent);
-      	visitService.create(visit);
-      	
-      	List<Visit> listVisit = good.getClientVisit();
-      	listVisit.add(visit);
-      	good.setClientVisit(listVisit);
-      	goodService.create(good);
+//    	ownerService.create(owner);
+//    	
+//    	Visit visit = new Visit();
+//      	visit.setId(1l);
+//      	visit.setGood(good);
+//      	visit.setClient(client);
+//      	visit.setEstateAgent(agent);
+//      	visitService.create(visit);
+//      	
+//      	List<Visit> listVisit = good.getClientVisit();
+//      	listVisit.add(visit);
+//      	good.setClientVisit(listVisit);
+//      	goodService.create(good);
       	
       };
   }
