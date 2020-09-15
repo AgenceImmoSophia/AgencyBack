@@ -2,6 +2,7 @@ package com.agencyBack.entity;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Owner extends Users {
 	private String phoneNumberPro;
 
 	@OneToMany
-	private List<Good> listGood = new ArrayList<Good>();
+	private List<Good> listOwnGood = new ArrayList<Good>();
 
 	// CONSTRUCTORS
 	public Owner() {
@@ -36,12 +37,12 @@ public class Owner extends Users {
 
 
 	public List<Good> getListGood() {
-		return listGood;
+		return listOwnGood;
 	}
 
 
 	public void setListGood(List<Good> listGood) {
-		this.listGood = listGood;
+		this.listOwnGood = listGood;
 	}	
 
 

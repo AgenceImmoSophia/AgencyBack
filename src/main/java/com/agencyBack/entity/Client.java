@@ -3,6 +3,7 @@ package com.agencyBack.entity;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class Client extends Users {
 	@ElementCollection
 	private List<String> listCode = new ArrayList<String>();
 	@OneToMany
-	private List<Good> listGood = new ArrayList<Good>();
+	private List<Good> listDesiredGood = new ArrayList<Good>();
 	
 
 	// CONSTRUCTORS
@@ -35,11 +36,11 @@ public class Client extends Users {
 	}
 
 	public List<Good> getListGood() {
-		return listGood;
+		return listDesiredGood;
 	}
 
 	public void setListGood(List<Good> listGood) {
-		this.listGood = listGood;
+		this.listDesiredGood = listGood;
 	}
 
 

@@ -1,5 +1,6 @@
 package com.agencyBack.entity;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ public class Users extends Base{
 	//ATTRIBUTES
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+//	@Column(nullable = true)
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;

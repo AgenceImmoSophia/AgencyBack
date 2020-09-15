@@ -87,7 +87,7 @@ public class AgencyBackApplication {
 //  }
 	
 	@Bean
-	public CommandLineRunner demo(AddressService addressService, EstateAgentService estateAgentService, EstateAgentRepository ear, ClientRepository cr, OwnerRepository or, ClientService clientService, OwnerService ownerService, GoodService goodService, ContractService contractService){
+	public CommandLineRunner demo(AddressService addressService, EstateAgentService estateAgentService, EstateAgentRepository ear, ClientRepository cr, OwnerRepository or, ClientService clientService, OwnerService ownerService, GoodService goodService, ContractService contractService, VisitService visitService){
       return args -> {
       	EstateAgent agent = new EstateAgent();
       	agent.setName("Roger");
@@ -150,24 +150,24 @@ public class AgencyBackApplication {
     	List<String> listCode = client.getListCode();
     	listCode.add("1515");
     	client.setListCode(listCode);
-//    	clientService.create(client);
+    	cs.create(client);
    	
     	List<Good> listOwnGood = owner.getListGood();
     	listOwnGood.add(good);
     	owner.setListGood(listOwnGood);
-//    	ownerService.create(owner);
-//    	
-//    	Visit visit = new Visit();
-//      	visit.setId(1l);
-//      	visit.setGood(good);
-//      	visit.setClient(client);
-//      	visit.setEstateAgent(agent);
-//      	visitService.create(visit);
-//      	
-//      	List<Visit> listVisit = good.getClientVisit();
-//      	listVisit.add(visit);
-//      	good.setClientVisit(listVisit);
-//      	goodService.create(good);
+    	os.create(owner);
+    	
+    	Visit visit = new Visit();
+      	visit.setId(1l);
+      	visit.setGood(good);
+      	visit.setClient(client);
+      	visit.setEstateAgent(agent);
+      	visitService.create(visit);
+      	
+      	List<Visit> listVisit = good.getClientVisit();
+      	listVisit.add(visit);
+      	good.setClientVisit(listVisit);
+      	goodService.create(good);
       	
       };
   }
