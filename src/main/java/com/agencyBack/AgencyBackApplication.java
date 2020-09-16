@@ -95,6 +95,10 @@ public class AgencyBackApplication {
       	Address address2 = new Address();
       	address2.setId(1l);
       	address2.setCountry("France");
+      	address2.setCity("Paris");
+      	address2.setStreet("OoooohChampsElysees");
+      	address2.setStreetNber("1");
+      	address2.setZipcode("75000");
       	agent.setAddress(address2);
       	agent.setUsername("rogerAgent1");
       	agent.setPassword("superMotDePasse");

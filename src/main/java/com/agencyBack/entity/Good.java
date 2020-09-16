@@ -25,9 +25,9 @@ public class Good extends Base {
     private Date dateAdded;
     private Date dateAvailability;
     private Float revenueCadastral;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Visit> clientVisit = new ArrayList<Visit>();
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Contract contract;
     private Float deposit;
     private Float charges;

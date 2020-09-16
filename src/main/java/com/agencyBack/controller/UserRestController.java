@@ -74,24 +74,20 @@ public class UserRestController {
 	
 
 
-//	@PostMapping(value = "/editUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public void editUserById(@RequestBody @Valid User user) throws NotFoundException {
-////        try {
-//			if ( user.getClass() == Owner.class ) {
-//				this.ownerServiceImpl.edit(user);
-//			}
-//			else if ( user.getClass() == Client.class ) {
-//				this.clientServiceImpl.edit(user);
-//			}
-//			else if ( user.getClass() == EstateAgent.class) {
-//				this.estateAgentServiceImpl.edit(user);
-//			}
-////        } catch (UserNotFoundException e) {
-////            e.printStackTrace();
-////        }
-//    }
+	@PostMapping(value = "/edit/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void editUserById(@RequestBody Users user, @PathVariable("id") Long id) throws NotFoundException {
+//        try {
+		user.setId(id);
+		this.userServiceImpl.edit(user);
+		
+//        } catch (UserNotFoundException e) {
+//            e.printStackTrace();
+//        }
+    }
 	
-	@DeleteMapping("/deleteUser/{id}")
+	
+	// Cannot delete any user tagged in a contract, good, or visit, or with a list of goods as it creates foreign key conflicts
+	@DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable("id") Long id) throws NotFoundException {
 //        try {
             this.userServiceImpl.deleteById(id);
