@@ -5,11 +5,14 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @DiscriminatorValue(value="Owner")
+@JsonTypeName("Owner")
 public class Owner extends Users {
 
 	//ATTRIBUTES

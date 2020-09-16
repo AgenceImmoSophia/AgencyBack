@@ -11,11 +11,21 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
+
 
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="ROLE", discriminatorType=DiscriminatorType.STRING)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.PROPERTY, property = "role")
+@JsonSubTypes({
+    @JsonSubTypes.Type(name = "Client", value = Client.class),
+    @JsonSubTypes.Type(name = "Owner", value = Owner.class),
+    @JsonSubTypes.Type(name = "EstateAgent", value = EstateAgent.class)
+})
 public class Users extends Base{
 	
 	//ATTRIBUTES

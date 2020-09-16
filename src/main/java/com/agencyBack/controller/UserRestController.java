@@ -61,15 +61,6 @@ public class UserRestController {
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
 //        try {
-//			if ( role.equals("owner") ) {
-//				this.ownerServiceImpl.create(user);
-//			}
-//			else if ( role.equals("client") ) {
-//				this.clientServiceImpl.create(user);
-//			}
-//			else if ( role.equals("agent") ) {
-//				this.estateAgentServiceImpl.create(user);
-//			}
 		
 			this.userServiceImpl.create(user);
 		

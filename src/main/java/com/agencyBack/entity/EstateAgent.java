@@ -2,10 +2,14 @@ package com.agencyBack.entity;
 
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
 import java.io.Serializable;
 
 @Entity
 @DiscriminatorValue(value="EstateAgent")
+@JsonTypeName("EstateAgent")
 public class EstateAgent extends Users {
 
 	//ATTRIBUTES
