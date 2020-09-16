@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.agencyBack.entity.Address;
 import com.agencyBack.entity.Client;
 import com.agencyBack.entity.EstateAgent;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Users;
+import com.agencyBack.service.impl.AddressServiceImpl;
 import com.agencyBack.service.impl.ClientServiceImpl;
 import com.agencyBack.service.impl.EstateAgentServiceImpl;
 import com.agencyBack.service.impl.OwnerServiceImpl;
@@ -37,7 +39,8 @@ public class UserRestController {
 	private ClientServiceImpl clientServiceImpl;
 	@Autowired
 	private EstateAgentServiceImpl estateAgentServiceImpl;
-	
+	@Autowired
+	private AddressServiceImpl addressServiceImpl;
 	
 	public UserRestController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
@@ -61,7 +64,9 @@ public class UserRestController {
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
 //        try {
-		
+			Address address = user.getAddress();
+			this.addressServiceImpl.create(address);
+			
 			this.userServiceImpl.create(user);
 		
 			return new ResponseEntity<>(user, HttpStatus.CREATED);
