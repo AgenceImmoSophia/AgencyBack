@@ -138,6 +138,10 @@ public class AgencyBackApplication {
     	Address address3 = new Address();
       	address3.setId(2l);
       	address3.setCountry("France");
+      	address3.setCity("Nice");
+      	address3.setStreet("Elysees");
+      	address3.setStreetNber("2");
+      	address3.setZipcode("06000");
      	good.setAddress(address3);
     	addressService.create(address3);
     	good.setContract(contract);

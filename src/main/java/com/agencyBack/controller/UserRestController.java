@@ -1,5 +1,7 @@
 package com.agencyBack.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -64,13 +66,37 @@ public class UserRestController {
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Users> createUser(@RequestBody Users user) {
 //        try {
-			Address address = user.getAddress();
-			this.addressServiceImpl.create(address);
+			Address addressUser = user.getAddress();
 			
-			this.userServiceImpl.create(user);
-		
+			List<Address> listExistingAddress = this.addressServiceImpl.getAll();
+			
+			Address addressExisting = new Address();
+			int counterAddress = 0;
+			for ( int a = 0; a < listExistingAddress.size(); a++) {
+				addressExisting.setCountry(listExistingAddress.get(a).getCountry());
+				addressExisting.setCity(listExistingAddress.get(a).getCity());
+				addressExisting.setStreet(listExistingAddress.get(a).getStreet());
+				addressExisting.setStreetNber(listExistingAddress.get(a).getStreetNber());
+				addressExisting.setZipcode(listExistingAddress.get(a).getZipcode());
+
+				if ( addressUser.equals(addressExisting) ) {
+					user.setAddress(listExistingAddress.get(a));
+					this.userServiceImpl.create(user);
+					return new ResponseEntity<>(user, HttpStatus.CREATED);
+				}
+				
+				counterAddress = a+1;
+			}
+			
+			if ( counterAddress >= listExistingAddress.size()) {
+				addressUser.setId(null);
+				user.setAddress(addressUser);
+				this.addressServiceImpl.create(addressUser);
+				this.userServiceImpl.create(user);
+				return new ResponseEntity<>(user, HttpStatus.CREATED);
+			}
+				
 			return new ResponseEntity<>(user, HttpStatus.CREATED);
-			
 //        } catch (UserAlreadyExistException e) {
 //            return ResponseEntity.status(HttpStatus.CONFLICT).build();
 //        }

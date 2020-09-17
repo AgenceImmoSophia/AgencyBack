@@ -5,6 +5,8 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+//import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Good extends Base {
     private Long id;
     private String nameOfGood;
     @JsonBackReference("OwnerToGood")
+    //@JsonBackReference
     @ManyToOne
     private Owner owner;
     private Float price;
@@ -141,14 +144,17 @@ public class Good extends Base {
         this.revenueCadastral = revenueCadastral;
     }
 
+    @JsonIgnore
     public List<Visit> getClientVisit() {
         return clientVisit;
     }
+
 
     public void setClientVisit(List<Visit> clientVisit) {
         this.clientVisit = clientVisit;
     }
 
+    @JsonIgnore
     public Contract getContract() {
         return contract;
     }
