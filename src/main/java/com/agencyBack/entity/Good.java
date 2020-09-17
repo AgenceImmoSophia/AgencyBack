@@ -144,7 +144,7 @@ public class Good extends Base {
         this.revenueCadastral = revenueCadastral;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public List<Visit> getClientVisit() {
         return clientVisit;
     }
@@ -154,7 +154,7 @@ public class Good extends Base {
         this.clientVisit = clientVisit;
     }
 
-    @JsonIgnore
+    //@JsonIgnore
     public Contract getContract() {
         return contract;
     }

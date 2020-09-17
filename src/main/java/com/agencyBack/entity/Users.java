@@ -34,7 +34,7 @@ public class Users extends Base{
 	private Long id;
 	private String name ;
 	private String phoneNumberPers;
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	private Address address;
 	
 	
