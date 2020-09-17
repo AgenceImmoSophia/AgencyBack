@@ -172,44 +172,60 @@ public class UserRestController {
 			return null; // If user is neither client nor owner, no list of Goods attribute 	
 		}
 	}
-//	
-//	@PostMapping(value = "/addGoodList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public void addGoodInList(@RequestBody User user, @RequestBody Good good) throws NotFoundException {
-//		if (user.getClass() == Owner.class) {
-//			Owner owner = (Owner) user;
-//			this.ownerServiceImpl.addOwnedGoodInListOwnedGood(owner, good);
-//	        
-//		}
-//		else if (user.getClass() == Client.class) {
-//			Client client = (Client) user;
-//			this.clientServiceImpl.addDesiredGoodToListDesired(client, good);
-//		}
-//		// Gérer exception si ni owner et client 
-//	}
-//	
-//	@DeleteMapping("/deleteGoodList")
-//    public void deleteGoodList(@RequestBody User user, @RequestBody Good good) throws NotFoundException {
-//		if (user.getClass() == Owner.class) {
-//			Owner owner = (Owner) user;
-//			this.ownerServiceImpl.deleteOwnedGoodFromListOwnedGood(owner, good); 
-//		}
-//		else if (user.getClass() == Client.class) {
-//			Client client = (Client) user;
-//			this.clientServiceImpl.deleteDesiredGoodFromListDesired(client, good);
-//		}
-//		// Gérer exception si ni owner et client 
-//	}
-//	
-//
-//	@PostMapping(value = "/addCodeList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public void addCodeInList(@RequestBody Client client, String code) {
-//		this.clientServiceImpl.addDesiredCodeToListDesired(client, code);     
-//		// Gérer exception 
-//	}
-//	
-//	@DeleteMapping("/deleteCodeList")
-//    public void deleteCodeList(@RequestBody Client client, String code) {
-//		this.clientServiceImpl.deleteDesiredCodeFromListDesired(client, code);
-//		// Gérer exception 
-//	}
+	
+	@PostMapping(value = "{userid}/addGoodToList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void addGoodInList(@PathVariable("userid") Long id, @RequestBody Good good) throws NotFoundException {
+		Users user = this.userServiceImpl.getById(id);
+		
+		if (user.getClass() == Owner.class) {
+			Owner owner = (Owner) user;
+			this.ownerService.addOwnedGoodToListOwnedGood(owner, good);
+			this.ownerService.edit(owner);
+		}
+		else if (user.getClass() == Client.class) {
+			Client client = (Client) user;
+			this.clientService.addDesiredGoodToListDesiredGood(client, good);
+			this.clientService.edit(client);
+		}
+		// Gérer exception si ni owner et client 
+	}
+	
+	@DeleteMapping("{userid}/deleteGoodFromList/{goodid}")
+    public void deleteGoodList(@PathVariable("userid") Long userid, @PathVariable("goodid") Long goodid) throws NotFoundException {
+		Users user = this.userServiceImpl.getById(userid);
+		if (user.getClass() == Owner.class) {
+			Owner owner = (Owner) user;
+			this.ownerService.deleteOwnedGoodFromListOwnedGood(owner, goodid); 
+			this.ownerService.edit(owner);
+		}
+		else if (user.getClass() == Client.class) {
+			Client client = (Client) user;
+			this.clientService.deleteDesiredGoodFromListDesiredGood(client, goodid);
+			this.clientService.edit(client);
+		}
+		// Gérer exception si ni owner et client 
+	}
+	
+
+	@PostMapping(value = "{clientid}/addCodeToList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public void addCodeToList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException {
+		Users user = this.userServiceImpl.getById(clientid);
+		if (user.getClass() == Client.class) {
+			Client client = (Client) user;
+			this.clientService.addDesiredCodeToListDesiredCode(client, code);   
+			this.clientService.edit(client);
+		 }
+		// Gérer exception 
+	}
+	
+	@PostMapping(value = "{clientid}/deleteCodeFromList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public void deleteCodeFromList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException {
+		Users user = this.userServiceImpl.getById(clientid);
+		if (user.getClass() == Client.class) {
+			Client client = (Client) user;
+			this.clientService.deleteDesiredCodeFromListDesiredCode(client, code);
+			this.clientService.edit(client);
+		}
+		// Gérer exception 
+	}
 }

@@ -2,6 +2,7 @@ package com.agencyBack.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agencyBack.entity.Good;
@@ -17,6 +18,7 @@ import javassist.NotFoundException;
 public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 
 	//ATTRIBUTES 
+	@Autowired
 	private GoodService goodService;
 	
 	//CONSTRUCTORS
@@ -36,21 +38,17 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 	}
 
 	@Override
-	public void addOwnedGoodInListOwnedGood(Owner owner, Good good) throws NotFoundException {
+	public void addOwnedGoodToListOwnedGood(Owner owner, Good good) throws NotFoundException {
 		Good goodToAdd = this.goodService.getById(good.getId());
-		if (goodToAdd == null) {
-			List<Good> listOwnedGood = owner.getListOwnedGood();
-			listOwnedGood.add(goodToAdd);
-			owner.setListOwnedGood(listOwnedGood);
-		}
-		else {
+		List<Good> listOwnedGood = owner.getListOwnedGood();
+		listOwnedGood.add(goodToAdd);
+		owner.setListOwnedGood(listOwnedGood);		
 		 // TODO gérer ici un good already exist exception
-		}
 	}
 
 	@Override
-	public void deleteOwnedGoodFromListOwnedGood(Owner owner, Good good) throws NotFoundException {
-		Good goodToDelete = this.goodService.getById(good.getId());
+	public void deleteOwnedGoodFromListOwnedGood(Owner owner, Long goodid) throws NotFoundException {
+		Good goodToDelete = this.goodService.getById(goodid);
 		if (goodToDelete != null) {
 			List<Good> listOwnedGood = owner.getListOwnedGood();
 			listOwnedGood.remove(goodToDelete);
