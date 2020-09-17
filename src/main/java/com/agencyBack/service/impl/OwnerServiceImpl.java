@@ -27,15 +27,12 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 	//METHODS
 	@Override
 	public Good findOwnedGoodsByNameFromOwnedGoods(Owner owner, String nameGood) {
-		System.out.println(nameGood);
-		
 		Good goodToFind = this.goodService.findGoodByName(nameGood);
-		System.out.println("affiche qq chose");
 		if (owner.getListOwnedGood().contains(goodToFind)) { 
 			return goodToFind;
 		}
 		// TODO Exception if null ou if no contains in listOwner
-		return null;
+		return goodToFind;
 	}
 
 	@Override
