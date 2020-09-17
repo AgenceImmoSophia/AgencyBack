@@ -4,6 +4,9 @@ package com.agencyBack.entity;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.sql.Date;
 
 @Entity
@@ -11,10 +14,13 @@ public class Visit extends Base{
 	@Id
 	private Long id;
 	private Date date;
+	
+	@JsonBackReference("GoodToVisit")
 	@ManyToOne
 	private Good good;
 	@ManyToOne
 	private EstateAgent estateAgent;
+	@JsonBackReference("GoodToVisit")
 	@ManyToOne
 	private Client client;
 	

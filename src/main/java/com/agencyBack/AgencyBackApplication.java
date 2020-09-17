@@ -147,18 +147,18 @@ public class AgencyBackApplication {
     	good2.setId(2l);
     	goodService.create(good2);
     	
-    	List<Good> listGood = client.getListGood();
-    	listGood.add(good);
-    	listGood.add(good2);
-    	client.setListGood(listGood); 
+    	List<Good> listDesiredGood = client.getListDesiredGood();
+    	listDesiredGood.add(good);
+    	listDesiredGood.add(good2);
+    	client.setListDesiredGood(listDesiredGood); 
     	List<String> listCode = client.getListCode();
     	listCode.add("1515");
     	client.setListCode(listCode);
     	cs.create(client);
    	
-    	List<Good> listOwnGood = owner.getListGood();
-    	listOwnGood.add(good);
-    	owner.setListGood(listOwnGood);
+    	List<Good> listOwnedGood = owner.getListOwnedGood();
+    	listOwnedGood.add(good);
+    	owner.setListOwnedGood(listOwnedGood);
     	os.create(owner);
     	
     	Visit visit = new Visit();

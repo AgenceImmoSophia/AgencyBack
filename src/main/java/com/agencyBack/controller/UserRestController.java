@@ -101,24 +101,24 @@ public class UserRestController {
 //        }
     }
 	
-//	@GetMapping("/myGood/{namegood}")
-//	public Good findGoodByNameFromList (@RequestBody @Valid User user, @PathVariable("namegood") String nameGood) {
-//		if (user.getClass() == Owner.class) {
-//			Owner owner = (Owner) user;
-//			Good goodToFind = this.ownerServiceImpl.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);
-//	        return goodToFind ;
-//		}
-//		else if (user.getClass() == Client.class) {
-//			Client client = (Client) user;
-//			Good goodToFind = this.clientServiceImpl.findDesiredGoodsByName(client, nameGood);
-//	        return goodToFind ;
-//		}
-//		return null; // Gérer exception si ni owner et client 
-//		
-//	}
+	@GetMapping("/myGood/{namegood}")
+	public Good findGoodByNameFromList (@RequestBody Users user, @PathVariable("namegood") String nameGood) {
+		if (user.getClass() == Owner.class) {
+			Owner owner = (Owner) user;
+			Good goodToFind = this.ownerServiceImpl.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);
+	        return goodToFind ;
+		}
+		else if (user.getClass() == Client.class) {
+			Client client = (Client) user;
+			Good goodToFind = this.clientServiceImpl.findDesiredGoodsByName(client, nameGood);
+	        return goodToFind ;
+		} else {
+			return null; // If user is neither client nor owner, no list of Goods attribute 	
+		}
+	}
 //	
 //	@PostMapping(value = "/addGoodList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public void addGoodInList(@RequestBody @Valid User user, @RequestBody Good good) throws NotFoundException {
+//	public void addGoodInList(@RequestBody User user, @RequestBody Good good) throws NotFoundException {
 //		if (user.getClass() == Owner.class) {
 //			Owner owner = (Owner) user;
 //			this.ownerServiceImpl.addOwnedGoodInListOwnedGood(owner, good);
@@ -132,7 +132,7 @@ public class UserRestController {
 //	}
 //	
 //	@DeleteMapping("/deleteGoodList")
-//    public void deleteGoodList(@RequestBody @Valid User user, @RequestBody Good good) throws NotFoundException {
+//    public void deleteGoodList(@RequestBody User user, @RequestBody Good good) throws NotFoundException {
 //		if (user.getClass() == Owner.class) {
 //			Owner owner = (Owner) user;
 //			this.ownerServiceImpl.deleteOwnedGoodFromListOwnedGood(owner, good); 
@@ -146,13 +146,13 @@ public class UserRestController {
 //	
 //
 //	@PostMapping(value = "/addCodeList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//	public void addCodeInList(@RequestBody @Valid Client client, String code) {
+//	public void addCodeInList(@RequestBody Client client, String code) {
 //		this.clientServiceImpl.addDesiredCodeToListDesired(client, code);     
 //		// Gérer exception 
 //	}
 //	
 //	@DeleteMapping("/deleteCodeList")
-//    public void deleteCodeList(@RequestBody @Valid Client client, String code) {
+//    public void deleteCodeList(@RequestBody Client client, String code) {
 //		this.clientServiceImpl.deleteDesiredCodeFromListDesired(client, code);
 //		// Gérer exception 
 //	}

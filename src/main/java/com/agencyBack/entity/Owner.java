@@ -1,11 +1,10 @@
 package com.agencyBack.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.ArrayList;
@@ -19,8 +18,9 @@ public class Owner extends Users {
 	//ATTRIBUTES
 	private String phoneNumberPro;
 
+	@JsonManagedReference("OwnerToGood")
 	@OneToMany
-	private List<Good> listOwnGood = new ArrayList<Good>();
+	private List<Good> listOwnedGood = new ArrayList<Good>();
 
 	// CONSTRUCTORS
 	public Owner() {
@@ -40,13 +40,13 @@ public class Owner extends Users {
 
 
 
-	public List<Good> getListGood() {
-		return listOwnGood;
+	public List<Good> getListOwnedGood() {
+		return listOwnedGood;
 	}
 
 
-	public void setListGood(List<Good> listGood) {
-		this.listOwnGood = listGood;
+	public void setListOwnedGood(List<Good> listOwnedGood) {
+		this.listOwnedGood = listOwnedGood;
 	}	
 
 

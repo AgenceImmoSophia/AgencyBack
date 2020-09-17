@@ -1,9 +1,11 @@
 package com.agencyBack.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.sql.Date;
 @Entity
@@ -14,10 +16,12 @@ public class Contract extends Base {
 	private Long id;
 	private float price;
 	private Date date;
+	@JsonBackReference("GoodToContract")
 	@OneToOne
 	private Good good;
 	@OneToOne
 	private EstateAgent estateAgent;
+	@JsonBackReference("GoodToContract")
 	@OneToOne
 	private Client client;
 	

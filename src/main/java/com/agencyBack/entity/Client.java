@@ -4,9 +4,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.util.ArrayList;
@@ -39,12 +40,12 @@ public class Client extends Users {
 		this.listCode = listCode;
 	}
 
-	public List<Good> getListGood() {
+	public List<Good> getListDesiredGood() {
 		return listDesiredGood;
 	}
 
-	public void setListGood(List<Good> listGood) {
-		this.listDesiredGood = listGood;
+	public void setListDesiredGood(List<Good> listDesiredGood) {
+		this.listDesiredGood = listDesiredGood;
 	}
 
 
