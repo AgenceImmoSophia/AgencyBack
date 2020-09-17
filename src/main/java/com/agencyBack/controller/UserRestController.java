@@ -110,8 +110,35 @@ public class UserRestController {
     public void editUserById(@RequestBody Users user, @PathVariable("id") Long id) throws NotFoundException {
 //        try {
 		user.setId(id);
-		this.userServiceImpl.edit(user);
 		
+		Address addressUser = user.getAddress();
+		
+		List<Address> listExistingAddress = this.addressService.getAll();
+		
+		Address addressExisting = new Address();
+		int counterAddress = 0;
+		for ( int a = 0; a < listExistingAddress.size(); a++) {
+			addressExisting.setCountry(listExistingAddress.get(a).getCountry());
+			addressExisting.setCity(listExistingAddress.get(a).getCity());
+			addressExisting.setStreet(listExistingAddress.get(a).getStreet());
+			addressExisting.setStreetNber(listExistingAddress.get(a).getStreetNber());
+			addressExisting.setZipcode(listExistingAddress.get(a).getZipcode());
+
+			if ( addressUser.equals(addressExisting) ) {
+				user.setAddress(listExistingAddress.get(a));
+				this.userServiceImpl.edit(user);
+				return;
+			}
+			counterAddress = a+1;
+		}
+		
+		if ( counterAddress >= listExistingAddress.size()) {
+			addressUser.setId(null);
+			user.setAddress(addressUser);
+			this.addressService.create(addressUser);
+			this.userServiceImpl.edit(user);
+			return;
+		}		
 //        } catch (UserNotFoundException e) {
 //            e.printStackTrace();
 //        }
@@ -128,8 +155,10 @@ public class UserRestController {
 //        }
     }
 	
-	@GetMapping("/myGood/{namegood}")
-	public Good findGoodByNameFromList (@RequestBody Users user, @PathVariable("namegood") String nameGood) {
+	@GetMapping("{userid}/myGood/{namegood}")
+	public Good findGoodByNameFromList ( @PathVariable("userid") Long id, @PathVariable("namegood") String nameGood) throws NotFoundException {
+		Users user = this.userServiceImpl.getById(id);
+		
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
 			Good goodToFind = this.ownerService.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);

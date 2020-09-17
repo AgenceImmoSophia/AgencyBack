@@ -82,23 +82,16 @@ public class Address extends Base{
 
         if (!otherAddress.country.equals(this.country)) 
         	return false;
-        
-        if (!otherAddress.city.equals(this.city)) {
-        	System.out.println(otherAddress.city+" "+this.city);
+        if (!otherAddress.city.equals(this.city)) 
         	return false;
-        }
-        	
-        if (!otherAddress.zipcode.equals(this.zipcode)) {
-        	System.out.println("On a passé une étape");
+        if (!otherAddress.zipcode.equals(this.zipcode))
         	return false;
-        }
-        	
+	
         if (!otherAddress.street.equals(this.street))
         	return false;
     	if (!otherAddress.streetNber.equals(this.streetNber))  
     	return false;
-        
-    	System.out.println("aucun if différent address identique");
+
         return true;
     }
     
