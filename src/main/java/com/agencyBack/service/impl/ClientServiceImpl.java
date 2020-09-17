@@ -55,6 +55,13 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 		// TODO Exception if null ou if no contains in listOwner
 		return goodToFind;
 		}
+	
+	@Override
+	public Iterable<Good> findAllDesiredGoods() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 	@Override
 	public void addDesiredGoodToListDesiredGood(Client client, Good good) throws NotFoundException {
@@ -78,11 +85,5 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 		else {
 		 // TODO gérer ici un good no exists exception
 		}
-	}
-
-	@Override
-	public Iterable<Good> findAllDesiredGoods() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

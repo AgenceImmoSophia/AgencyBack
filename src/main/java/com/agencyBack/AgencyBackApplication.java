@@ -11,7 +11,6 @@ import com.agencyBack.service.EstateAgentService;
 import com.agencyBack.service.GoodService;
 import com.agencyBack.service.OwnerService;
 import com.agencyBack.service.VisitService;
-import com.agencyBack.service.impl.GoodServiceImpl;
 import com.agencyBack.service.impl.ClientServiceImpl;
 import com.agencyBack.service.impl.EstateAgentServiceImpl;
 import com.agencyBack.service.impl.OwnerServiceImpl;

@@ -2,8 +2,7 @@ package com.agencyBack.controller;
 
 import org.springframework.web.bind.annotation.*;
 import com.agencyBack.entity.Contract;
-import com.agencyBack.service.impl.ContractServiceImpl;
-
+import com.agencyBack.service.ContractService;
 import javassist.NotFoundException;
 
 @RestController
@@ -12,9 +11,9 @@ public class ContractRestController {
 
 	// ATTRIBUTES
 
-	private final ContractServiceImpl contractService;
+	private final ContractService contractService;
 
-	public ContractRestController(ContractServiceImpl contractService) {
+	public ContractRestController(ContractService contractService) {
 		this.contractService = contractService;
 	}
 

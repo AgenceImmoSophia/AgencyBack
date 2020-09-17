@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.agencyBack.entity.Good;
+import com.agencyBack.entity.Owner;
 import com.agencyBack.repository.OwnerRepository;
 import com.agencyBack.service.GoodService;
 import com.agencyBack.service.OwnerService;
@@ -28,12 +29,12 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 
 	//METHODS
 	@Override
-	@Override
 	public Iterable<Good> findAllOwnedGoods() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
+	@Override
 	public Good findOwnedGoodsByNameFromOwnedGoods(Owner owner, String nameGood) {
 		Good goodToFind = this.goodService.findGoodByName(nameGood);
 		if (owner.getListOwnedGood().contains(goodToFind)) {
@@ -63,17 +64,5 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 		else {
 		 // TODO gérer ici un good no exists exception
 		}	
-	}
-
-	@Override
-	public void editOwnedGoodFromListOwnedGood(List<Good> listGood, Good good) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteOwnedGoodFromListOwnedGood(List<Good> listGood, Good good) {
-		// TODO Auto-generated method stub
-
 	}
 }

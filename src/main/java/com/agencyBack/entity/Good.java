@@ -19,6 +19,7 @@ public class Good extends Base {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nameOfGood;
+    private TypeOfGood typeOfGood;
     @JsonBackReference("OwnerToGood")
     //@JsonBackReference
     @ManyToOne

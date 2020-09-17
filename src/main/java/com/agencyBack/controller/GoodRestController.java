@@ -13,6 +13,7 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class GoodRestController {
+	
     private final GoodService goodService;
 
     public GoodRestController (GoodService goodService){
