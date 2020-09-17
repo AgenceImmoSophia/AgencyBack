@@ -1,11 +1,14 @@
 package com.agencyBack.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Address extends Base{
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String city;
 	private String zipcode;
@@ -68,4 +71,35 @@ public class Address extends Base{
 		this.country = country;
 	}
 	
+	
+	@Override
+    public boolean equals(final Object obj)
+    {
+        if ( obj == null || !(obj instanceof Address) ) 
+            return false;
+
+        Address otherAddress = (Address) obj;
+
+        if (!otherAddress.country.equals(this.country)) 
+        	return false;
+        
+        if (!otherAddress.city.equals(this.city)) {
+        	System.out.println(otherAddress.city+" "+this.city);
+        	return false;
+        }
+        	
+        if (!otherAddress.zipcode.equals(this.zipcode)) {
+        	System.out.println("On a passé une étape");
+        	return false;
+        }
+        	
+        if (!otherAddress.street.equals(this.street))
+        	return false;
+    	if (!otherAddress.streetNber.equals(this.streetNber))  
+    	return false;
+        
+    	System.out.println("aucun if différent address identique");
+        return true;
+    }
+    
 }

@@ -2,6 +2,11 @@ package com.agencyBack.entity;
 
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +18,7 @@ public class Good extends Base {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nameOfGood;
+    @JsonBackReference
     @ManyToOne
     private Owner owner;
     private Float price;
@@ -53,7 +59,7 @@ public class Good extends Base {
     public void setNameOfGood(String nameOfGood) {
         this.nameOfGood = nameOfGood;
     }
-
+    
     public Owner getOwner() {
         return owner;
     }
@@ -134,14 +140,17 @@ public class Good extends Base {
         this.revenueCadastral = revenueCadastral;
     }
 
+    @JsonIgnore
     public List<Visit> getClientVisit() {
         return clientVisit;
     }
 
+    
     public void setClientVisit(List<Visit> clientVisit) {
         this.clientVisit = clientVisit;
     }
 
+    @JsonIgnore
     public Contract getContract() {
         return contract;
     }
