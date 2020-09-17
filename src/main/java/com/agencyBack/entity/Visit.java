@@ -20,7 +20,7 @@ public class Visit extends Base{
 	private Good good;
 	@ManyToOne
 	private EstateAgent estateAgent;
-	@JsonBackReference("GoodToVisit")
+	@JsonBackReference
 	@ManyToOne
 	private Client client;
 	

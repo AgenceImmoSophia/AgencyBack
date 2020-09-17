@@ -21,7 +21,7 @@ public class Contract extends Base {
 	private Good good;
 	@OneToOne
 	private EstateAgent estateAgent;
-	@JsonBackReference("GoodToContract")
+	@JsonBackReference
 	@OneToOne
 	private Client client;
 	

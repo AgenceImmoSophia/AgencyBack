@@ -20,10 +20,11 @@ import com.agencyBack.entity.EstateAgent;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Users;
-import com.agencyBack.service.impl.AddressServiceImpl;
-import com.agencyBack.service.impl.ClientServiceImpl;
-import com.agencyBack.service.impl.EstateAgentServiceImpl;
-import com.agencyBack.service.impl.OwnerServiceImpl;
+import com.agencyBack.service.AddressService;
+import com.agencyBack.service.ClientService;
+import com.agencyBack.service.EstateAgentService;
+import com.agencyBack.service.OwnerService;
+import com.agencyBack.service.UserService;
 import com.agencyBack.service.impl.UserServiceImpl;
 
 import javassist.NotFoundException;
@@ -36,13 +37,13 @@ public class UserRestController {
 	@Autowired
 	private  UserServiceImpl userServiceImpl;
 	@Autowired
-	private OwnerServiceImpl ownerServiceImpl;
+	private OwnerService ownerService;
 	@Autowired
-	private ClientServiceImpl clientServiceImpl;
+	private ClientService clientService;
 	@Autowired
-	private EstateAgentServiceImpl estateAgentServiceImpl;
+	private EstateAgentService estateAgentService;
 	@Autowired
-	private AddressServiceImpl addressServiceImpl;
+	private AddressService addressService;
 	
 	public UserRestController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
@@ -68,7 +69,7 @@ public class UserRestController {
 //        try {
 			Address addressUser = user.getAddress();
 			
-			List<Address> listExistingAddress = this.addressServiceImpl.getAll();
+			List<Address> listExistingAddress = this.addressService.getAll();
 			
 			Address addressExisting = new Address();
 			int counterAddress = 0;
@@ -91,7 +92,7 @@ public class UserRestController {
 			if ( counterAddress >= listExistingAddress.size()) {
 				addressUser.setId(null);
 				user.setAddress(addressUser);
-				this.addressServiceImpl.create(addressUser);
+				this.addressService.create(addressUser);
 				this.userServiceImpl.create(user);
 				return new ResponseEntity<>(user, HttpStatus.CREATED);
 			}
@@ -131,12 +132,12 @@ public class UserRestController {
 	public Good findGoodByNameFromList (@RequestBody Users user, @PathVariable("namegood") String nameGood) {
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
-			Good goodToFind = this.ownerServiceImpl.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);
+			Good goodToFind = this.ownerService.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);
 	        return goodToFind ;
 		}
 		else if (user.getClass() == Client.class) {
 			Client client = (Client) user;
-			Good goodToFind = this.clientServiceImpl.findDesiredGoodsByName(client, nameGood);
+			Good goodToFind = this.clientService.findDesiredGoodsByName(client, nameGood);
 	        return goodToFind ;
 		} else {
 			return null; // If user is neither client nor owner, no list of Goods attribute 	
