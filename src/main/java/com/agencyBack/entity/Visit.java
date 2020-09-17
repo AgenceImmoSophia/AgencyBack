@@ -2,6 +2,12 @@ package com.agencyBack.entity;
 
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.sql.Date;
 
 @Entity
@@ -10,15 +16,18 @@ public class Visit extends Base{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private Date date;
+
+	@JsonBackReference("GoodToVisit")
 	@ManyToOne
 	private Good good;
 	@ManyToOne
 	private EstateAgent estateAgent;
+	@JsonBackReference
 	@ManyToOne
 	private Client client;
-	
+
 	public Visit() {
-		
+
 	}
 
 	@Override
@@ -62,7 +71,7 @@ public class Visit extends Base{
 	public void setClient(Client client) {
 		this.client = client;
 	}
-	
-	
+
+
 
 }

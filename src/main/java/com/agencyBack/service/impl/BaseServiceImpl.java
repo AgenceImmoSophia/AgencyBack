@@ -4,6 +4,7 @@ import com.agencyBack.entity.Base;
 import com.agencyBack.repository.BaseRepository;
 import com.agencyBack.service.BaseService;
 import javassist.NotFoundException;
+
 import org.modelmapper.ModelMapper;
 
 import java.util.List;
@@ -14,8 +15,6 @@ public class BaseServiceImpl<T extends Base> implements BaseService <T>{
     private BaseRepository<T> repository;
 
     private T baseObject;
-
-    private static ModelMapper modelMapper;
 
     public <B extends BaseRepository<T>> BaseServiceImpl(B repository, T baseObject) {
         this.repository = repository;
@@ -46,20 +45,12 @@ public class BaseServiceImpl<T extends Base> implements BaseService <T>{
 
     @Override
     public T edit(T base) throws NotFoundException {
-        return edit(base, null);
+        return repository.save(base);
+
     }
 
     @Override
     public void deleteById(Long id) throws NotFoundException {
         this.repository.deleteById(id);
-    }
-
-
-    protected T edit(T newBase, T oldBase) throws NotFoundException {
-        if (oldBase == null)
-            oldBase = getById(newBase.getId());
-        //Sets all the attributes for a given object
-        modelMapper.map(newBase, oldBase);
-        return repository.save(oldBase);
     }
 }

@@ -1,6 +1,6 @@
 package com.agencyBack.service;
 
-import com.agencyBack.entity.User;
+import com.agencyBack.entity.Users;
 
-public interface UserService extends BaseService<User> {
+public interface UserService extends BaseService<Users> {
 }

@@ -1,16 +1,18 @@
 package com.agencyBack.service.impl;
 
-import com.agencyBack.entity.User;
+import org.springframework.stereotype.Service;
+
+import com.agencyBack.entity.Users;
 import com.agencyBack.repository.UserRepository;
 import com.agencyBack.service.UserService;
 
-
-public class UserServiceImpl extends BaseServiceImpl<User>implements UserService{
+@Service
+public class UserServiceImpl extends BaseServiceImpl<Users> implements UserService {
 
 
 	// CONSTRUCTORS  
     public UserServiceImpl(UserRepository userRepository) {
-		super(userRepository, new User());
+		super(userRepository, new Users());
 	}
 
 	

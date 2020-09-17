@@ -71,4 +71,28 @@ public class Address extends Base{
 		this.country = country;
 	}
 	
+	
+	@Override
+    public boolean equals(final Object obj)
+    {
+        if ( obj == null || !(obj instanceof Address) ) 
+            return false;
+
+        Address otherAddress = (Address) obj;
+
+        if (!otherAddress.country.equals(this.country)) 
+        	return false;
+        if (!otherAddress.city.equals(this.city)) 
+        	return false;
+        if (!otherAddress.zipcode.equals(this.zipcode))
+        	return false;
+	
+        if (!otherAddress.street.equals(this.street))
+        	return false;
+    	if (!otherAddress.streetNber.equals(this.streetNber))  
+    	return false;
+
+        return true;
+    }
+    
 }

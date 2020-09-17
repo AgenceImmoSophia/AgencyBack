@@ -1,17 +1,31 @@
 package com.agencyBack.entity;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
-public class Client extends User {
+@DiscriminatorValue(value="Client")
+@JsonTypeName("Client")
+public class Client extends Users {
 
 	//ATTRIBUTES
 	@ElementCollection
-	private List<String> listCode;
-	@OneToMany
-	private List<Good> listGood;
+	private List<String> listCode = new ArrayList<String>();
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Good> listDesiredGood = new ArrayList<Good>();
+
 
 	// CONSTRUCTORS
 	public Client() {
@@ -19,20 +33,20 @@ public class Client extends User {
 	}
 
 	//METHODS
-//	public List<String> getListCode() {
-//		return listCode;
-//	}
-//
-//	public void setListCode(List<String> listCode) {
-//		this.listCode = listCode;
-//	}
-//
-	public List<Good> getListGood() {
-		return listGood;
+	public List<String> getListCode() {
+		return listCode;
 	}
 
-	public void setListGood(List<Good> listGood) {
-		this.listGood = listGood;
+	public void setListCode(List<String> listCode) {
+		this.listCode = listCode;
+	}
+
+	public List<Good> getListDesiredGood() {
+		return listDesiredGood;
+	}
+
+	public void setListDesiredGood(List<Good> listDesiredGood) {
+		this.listDesiredGood = listDesiredGood;
 	}
 
 
