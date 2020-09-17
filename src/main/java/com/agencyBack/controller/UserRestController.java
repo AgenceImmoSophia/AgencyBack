@@ -20,12 +20,11 @@ import com.agencyBack.entity.EstateAgent;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Users;
-import com.agencyBack.service.impl.AddressServiceImpl;
-import com.agencyBack.service.impl.ClientServiceImpl;
-import com.agencyBack.service.impl.EstateAgentServiceImpl;
-import com.agencyBack.service.impl.OwnerServiceImpl;
-import com.agencyBack.service.impl.UserServiceImpl;
-
+import com.agencyBack.service.AddressService;
+import com.agencyBack.service.ClientService;
+import com.agencyBack.service.EstateAgentService;
+import com.agencyBack.service.OwnerService;
+import com.agencyBack.service.UserService;
 import javassist.NotFoundException;
 
 
@@ -34,32 +33,32 @@ import javassist.NotFoundException;
 public class UserRestController {
 	
 	@Autowired
-	private  UserServiceImpl userServiceImpl;
+	private  UserService userService;
 	@Autowired
-	private OwnerServiceImpl ownerServiceImpl;
+	private OwnerService ownerService;
 	@Autowired
-	private ClientServiceImpl clientServiceImpl;
+	private ClientService clientService;
 	@Autowired
-	private EstateAgentServiceImpl estateAgentServiceImpl;
+	private EstateAgentService estateAgentService;
 	@Autowired
-	private AddressServiceImpl addressServiceImpl;
+	private AddressService addressService;
 	
-	public UserRestController(UserServiceImpl userServiceImpl) {
-		this.userServiceImpl = userServiceImpl;
+	public UserRestController(UserService userService) {
+		this.userService = userService;
 	}
 	
 
 	
 	@GetMapping("/{id}")
     public Users findUserById(@PathVariable("id") Long id) throws NotFoundException {
-        Users UserToFind = this.userServiceImpl.getById(id);
+        Users UserToFind = this.userService.getById(id);
         return UserToFind;
     }
 
     
     @GetMapping("/allUsers")
     public Iterable<Users> findAllUsers() {
-        return this.userServiceImpl.getAll();
+        return this.userService.getAll();
     }
 	
 	
@@ -68,7 +67,7 @@ public class UserRestController {
 //        try {
 			Address addressUser = user.getAddress();
 			
-			List<Address> listExistingAddress = this.addressServiceImpl.getAll();
+			List<Address> listExistingAddress = this.addressService.getAll();
 			
 			Address addressExisting = new Address();
 			int counterAddress = 0;
@@ -81,7 +80,7 @@ public class UserRestController {
 
 				if ( addressUser.equals(addressExisting) ) {
 					user.setAddress(listExistingAddress.get(a));
-					this.userServiceImpl.create(user);
+					this.userService.create(user);
 					return new ResponseEntity<>(user, HttpStatus.CREATED);
 				}
 				
@@ -91,8 +90,8 @@ public class UserRestController {
 			if ( counterAddress >= listExistingAddress.size()) {
 				addressUser.setId(null);
 				user.setAddress(addressUser);
-				this.addressServiceImpl.create(addressUser);
-				this.userServiceImpl.create(user);
+				this.addressService.create(addressUser);
+				this.userService.create(user);
 				return new ResponseEntity<>(user, HttpStatus.CREATED);
 			}
 				
@@ -109,8 +108,36 @@ public class UserRestController {
     public void editUserById(@RequestBody Users user, @PathVariable("id") Long id) throws NotFoundException {
 //        try {
 		user.setId(id);
-		this.userServiceImpl.edit(user);
 		
+		Address addressUser = user.getAddress();
+		
+		List<Address> listExistingAddress = this.addressService.getAll();
+		
+		Address addressExisting = new Address();
+		int counterAddress = 0;
+		for ( int a = 0; a < listExistingAddress.size(); a++) {
+			addressExisting.setCountry(listExistingAddress.get(a).getCountry());
+			addressExisting.setCity(listExistingAddress.get(a).getCity());
+			addressExisting.setStreet(listExistingAddress.get(a).getStreet());
+			addressExisting.setStreetNber(listExistingAddress.get(a).getStreetNber());
+			addressExisting.setZipcode(listExistingAddress.get(a).getZipcode());
+
+			if ( addressUser.equals(addressExisting) ) {
+				user.setAddress(listExistingAddress.get(a));
+				this.userService.edit(user);
+				return;
+			}
+			
+			counterAddress = a+1;
+		}
+		
+		if ( counterAddress >= listExistingAddress.size()) {
+			addressUser.setId(null);
+			user.setAddress(addressUser);
+			this.addressService.create(addressUser);
+			this.userService.edit(user);
+			return;
+		}		
 //        } catch (UserNotFoundException e) {
 //            e.printStackTrace();
 //        }
@@ -121,22 +148,24 @@ public class UserRestController {
 	@DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable("id") Long id) throws NotFoundException {
 //        try {
-            this.userServiceImpl.deleteById(id);
+            this.userService.deleteById(id);
 //        } catch (ProductNotFoundException e) {
 //            e.printStackTrace();
 //        }
     }
 	
-	@GetMapping("/myGood/{namegood}")
-	public Good findGoodByNameFromList (@RequestBody Users user, @PathVariable("namegood") String nameGood) {
+	@GetMapping("{userid}/myGood/{namegood}")
+	public Good findGoodByNameFromList (@PathVariable("userid") Long id, @PathVariable("namegood") String nameGood) throws NotFoundException {
+		Users user = this.userService.getById(id);
+		
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
-			Good goodToFind = this.ownerServiceImpl.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);
+			Good goodToFind = this.ownerService.findOwnedGoodsByNameFromOwnedGoods(owner, nameGood);
 	        return goodToFind ;
 		}
 		else if (user.getClass() == Client.class) {
 			Client client = (Client) user;
-			Good goodToFind = this.clientServiceImpl.findDesiredGoodsByName(client, nameGood);
+			Good goodToFind = this.clientService.findDesiredGoodsByName(client, nameGood);
 	        return goodToFind ;
 		} else {
 			return null; // If user is neither client nor owner, no list of Goods attribute 	
@@ -147,12 +176,12 @@ public class UserRestController {
 //	public void addGoodInList(@RequestBody User user, @RequestBody Good good) throws NotFoundException {
 //		if (user.getClass() == Owner.class) {
 //			Owner owner = (Owner) user;
-//			this.ownerServiceImpl.addOwnedGoodInListOwnedGood(owner, good);
+//			this.ownerService.addOwnedGoodInListOwnedGood(owner, good);
 //	        
 //		}
 //		else if (user.getClass() == Client.class) {
 //			Client client = (Client) user;
-//			this.clientServiceImpl.addDesiredGoodToListDesired(client, good);
+//			this.clientService.addDesiredGoodToListDesired(client, good);
 //		}
 //		// Gérer exception si ni owner et client 
 //	}
@@ -161,11 +190,11 @@ public class UserRestController {
 //    public void deleteGoodList(@RequestBody User user, @RequestBody Good good) throws NotFoundException {
 //		if (user.getClass() == Owner.class) {
 //			Owner owner = (Owner) user;
-//			this.ownerServiceImpl.deleteOwnedGoodFromListOwnedGood(owner, good); 
+//			this.ownerService.deleteOwnedGoodFromListOwnedGood(owner, good); 
 //		}
 //		else if (user.getClass() == Client.class) {
 //			Client client = (Client) user;
-//			this.clientServiceImpl.deleteDesiredGoodFromListDesired(client, good);
+//			this.clientService.deleteDesiredGoodFromListDesired(client, good);
 //		}
 //		// Gérer exception si ni owner et client 
 //	}
@@ -173,13 +202,13 @@ public class UserRestController {
 //
 //	@PostMapping(value = "/addCodeList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 //	public void addCodeInList(@RequestBody Client client, String code) {
-//		this.clientServiceImpl.addDesiredCodeToListDesired(client, code);     
+//		this.clientService.addDesiredCodeToListDesired(client, code);     
 //		// Gérer exception 
 //	}
 //	
 //	@DeleteMapping("/deleteCodeList")
 //    public void deleteCodeList(@RequestBody Client client, String code) {
-//		this.clientServiceImpl.deleteDesiredCodeFromListDesired(client, code);
+//		this.clientService.deleteDesiredCodeFromListDesired(client, code);
 //		// Gérer exception 
 //	}
 }
