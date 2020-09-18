@@ -38,10 +38,12 @@ public class ContractRestController {
 		this.contractService.edit(contract);
 	}
 
-	@DeleteMapping("/deleteContract/{id}")
-	public void deleteContractById (@PathVariable("id") Long id) throws NotFoundException {
-		this.contractService.deleteById(id);
-	}
+	// Can't delete with foreign key if the contract doesn't exist finally we should add attribute "cancel"
+	
+//	@DeleteMapping("/deleteContract/{id}")
+//	public void deleteContractById (@PathVariable("id") Long id) throws NotFoundException {
+//		this.contractService.deleteById(id);
+//	}
 
 
 }
