@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.exception.GoodAlreadyInListException;
-import com.agencyBack.exception.GoodNotFoundException;
 import com.agencyBack.exception.GoodNotInListException;
 import com.agencyBack.repository.OwnerRepository;
 import com.agencyBack.service.GoodService;
@@ -48,15 +47,16 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 						throw new GoodNotInListException();
 					}
 				} catch (GoodNotInListException gnile) {
-				throw gnile;
+				gnile.printStackTrace();
 				}
 			} else {
 				throw new NotFoundException("This good does not exist");
 			}
 		} catch (NotFoundException nfe) {
-			throw nfe;
+			nfe.printStackTrace();
+			nfe.getMessage();
 		}
-		
+		return null;
 	}
 
 	@Override
@@ -70,7 +70,7 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 				owner.setListOwnedGood(listOwnedGood);
 			}
 		} catch (GoodAlreadyInListException gaile) {
-			throw gaile;
+			gaile.printStackTrace();
 		}
 	}
 
@@ -88,14 +88,15 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 						throw new GoodNotInListException();
 					}
 				} catch (GoodNotInListException gnile) {
-					throw gnile;
+					gnile.printStackTrace();
 				}
 			}
 			else {
 			 throw new NotFoundException("This good does not exist");
 			}	
 		} catch (NotFoundException nfe) {
-			throw nfe;
+			nfe.printStackTrace();
+			nfe.getMessage();
 		}
 	}
 }
