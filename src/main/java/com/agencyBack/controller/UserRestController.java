@@ -20,6 +20,11 @@ import com.agencyBack.entity.Client;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Users;
+import com.agencyBack.exception.CodeAlreadyInListException;
+import com.agencyBack.exception.CodeNotInListException;
+import com.agencyBack.exception.GoodAlreadyInListException;
+import com.agencyBack.exception.GoodNotInListException;
+import com.agencyBack.exception.UserAlreadyExistException;
 import com.agencyBack.service.AddressService;
 import com.agencyBack.service.ClientService;
 import com.agencyBack.service.EstateAgentService;
@@ -65,42 +70,49 @@ public class UserRestController {
 	
 	
 	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Users> createUser(@RequestBody Users user) {
-//        try {
-			Address addressUser = user.getAddress();
-			
-			List<Address> listExistingAddress = this.addressService.getAll();
-			
-			Address addressExisting = new Address();
-			int counterAddress = 0;
-			for ( int a = 0; a < listExistingAddress.size(); a++) {
-				addressExisting.setCountry(listExistingAddress.get(a).getCountry());
-				addressExisting.setCity(listExistingAddress.get(a).getCity());
-				addressExisting.setStreet(listExistingAddress.get(a).getStreet());
-				addressExisting.setStreetNber(listExistingAddress.get(a).getStreetNber());
-				addressExisting.setZipcode(listExistingAddress.get(a).getZipcode());
+    public ResponseEntity<Users> createUser(@RequestBody Users user) throws UserAlreadyExistException {
+        try {
+        	List<Users> allUsers = this.userServiceImpl.getAll();
+        	
+        	if ( !allUsers.contains(user)) {
+        		Address addressUser = user.getAddress();
+    			
+    			List<Address> listExistingAddress = this.addressService.getAll();
+    			
+    			Address addressExisting = new Address();
+    			int counterAddress = 0;
+    			for ( int a = 0; a < listExistingAddress.size(); a++) {
+    				addressExisting.setCountry(listExistingAddress.get(a).getCountry());
+    				addressExisting.setCity(listExistingAddress.get(a).getCity());
+    				addressExisting.setStreet(listExistingAddress.get(a).getStreet());
+    				addressExisting.setStreetNber(listExistingAddress.get(a).getStreetNber());
+    				addressExisting.setZipcode(listExistingAddress.get(a).getZipcode());
 
-				if ( addressUser.equals(addressExisting) ) {
-					user.setAddress(listExistingAddress.get(a));
-					this.userServiceImpl.create(user);
-					return new ResponseEntity<>(user, HttpStatus.CREATED);
-				}
-				
-				counterAddress = a+1;
-			}
-			
-			if ( counterAddress >= listExistingAddress.size()) {
-				addressUser.setId(null);
-				user.setAddress(addressUser);
-				this.addressService.create(addressUser);
-				this.userServiceImpl.create(user);
-				return new ResponseEntity<>(user, HttpStatus.CREATED);
-			}
-				
-			return new ResponseEntity<>(user, HttpStatus.CREATED);
-//        } catch (UserAlreadyExistException e) {
-//            return ResponseEntity.status(HttpStatus.CONFLICT).build();
-//        }
+    				if ( addressUser.equals(addressExisting) ) {
+    					user.setAddress(listExistingAddress.get(a));
+    					this.userServiceImpl.create(user);
+    					return new ResponseEntity<>(user, HttpStatus.CREATED);
+    				}
+    				
+    				counterAddress = a+1;
+    			}
+    			
+    			if ( counterAddress >= listExistingAddress.size()) {
+    				addressUser.setId(null);
+    				user.setAddress(addressUser);
+    				this.addressService.create(addressUser);
+    				this.userServiceImpl.create(user);
+    				return new ResponseEntity<>(user, HttpStatus.CREATED);
+    			}
+        	}
+        	else {
+        		throw new UserAlreadyExistException("This user already exists");
+        	}
+        } catch (UserAlreadyExistException uaee) {
+        	uaee.printStackTrace();
+        	uaee.getMessage();
+        }
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 	
 	
@@ -108,7 +120,6 @@ public class UserRestController {
 
 	@PostMapping(value = "/edit/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public void editUserById(@RequestBody Users user, @PathVariable("id") Long id) throws NotFoundException {
-//        try {
 		user.setId(id);
 		
 		Address addressUser = user.getAddress();
@@ -139,24 +150,17 @@ public class UserRestController {
 			this.userServiceImpl.edit(user);
 			return;
 		}		
-//        } catch (UserNotFoundException e) {
-//            e.printStackTrace();
-//        }
     }
 	
 	
 	// Cannot delete any user tagged in a contract, good, or visit, or with a list of goods as it creates foreign key conflicts
 	@DeleteMapping("/delete/{id}")
     public void deleteUserById(@PathVariable("id") Long id) throws NotFoundException {
-//        try {
             this.userServiceImpl.deleteById(id);
-//        } catch (ProductNotFoundException e) {
-//            e.printStackTrace();
-//        }
     }
 	
 	@GetMapping("{userid}/myGood/{namegood}")
-	public Good findGoodByNameFromList ( @PathVariable("userid") Long id, @PathVariable("namegood") String nameGood) throws NotFoundException {
+	public Good findGoodByNameFromList ( @PathVariable("userid") Long id, @PathVariable("namegood") String nameGood) throws NotFoundException, GoodNotInListException {
 		Users user = this.userServiceImpl.getById(id);
 		
 		if (user.getClass() == Owner.class) {
@@ -174,7 +178,7 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value = "{userid}/addGoodToList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void addGoodInList(@PathVariable("userid") Long id, @RequestBody Good good) throws NotFoundException {
+	public void addGoodToList(@PathVariable("userid") Long id, @RequestBody Good good) throws GoodAlreadyInListException, NotFoundException {
 		Users user = this.userServiceImpl.getById(id);
 		
 		if (user.getClass() == Owner.class) {
@@ -191,7 +195,7 @@ public class UserRestController {
 	}
 	
 	@DeleteMapping("{userid}/deleteGoodFromList/{goodid}")
-    public void deleteGoodList(@PathVariable("userid") Long userid, @PathVariable("goodid") Long goodid) throws NotFoundException {
+    public void deleteGoodFromList(@PathVariable("userid") Long userid, @PathVariable("goodid") Long goodid) throws GoodNotInListException, NotFoundException {
 		Users user = this.userServiceImpl.getById(userid);
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
@@ -208,7 +212,7 @@ public class UserRestController {
 	
 
 	@PostMapping(value = "{clientid}/addCodeToList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void addCodeToList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException {
+	public void addCodeToList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException, CodeAlreadyInListException {
 		Users user = this.userServiceImpl.getById(clientid);
 		if (user.getClass() == Client.class) {
 			Client client = (Client) user;
@@ -219,7 +223,7 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value = "{clientid}/deleteCodeFromList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteCodeFromList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException {
+    public void deleteCodeFromList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException, CodeNotInListException {
 		Users user = this.userServiceImpl.getById(clientid);
 		if (user.getClass() == Client.class) {
 			Client client = (Client) user;

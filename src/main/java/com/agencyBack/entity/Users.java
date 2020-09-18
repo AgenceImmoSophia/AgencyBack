@@ -79,7 +79,19 @@ public class Users extends Base{
 		this.address = address;
 	}
    
-    
+	@Override
+    public boolean equals(final Object obj)
+    {
+        if ( obj == null || !(obj instanceof Good) ) 
+            return false;
+
+        Users user = (Users) obj;
+        
+        if (!user.id.equals(this.id)) 
+        	return false;
+
+        return true;
+    }
 	
 	
 }

@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
+import com.agencyBack.exception.GoodAlreadyInListException;
+import com.agencyBack.exception.GoodNotInListException;
 import com.agencyBack.repository.OwnerRepository;
 import com.agencyBack.service.GoodService;
 import com.agencyBack.service.OwnerService;
@@ -29,40 +31,75 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 
 	//METHODS
 	@Override
-	public Iterable<Good> findAllOwnedGoods() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterable<Good> findAllOwnedGoods(Owner owner) {
+		return owner.getListOwnedGood();
 	}
 	
 	@Override
-	public Good findOwnedGoodsByNameFromOwnedGoods(Owner owner, String nameGood) {
-		Good goodToFind = this.goodService.findGoodByName(nameGood);
-		if (owner.getListOwnedGood().contains(goodToFind)) {
-			return goodToFind;
+	public Good findOwnedGoodsByNameFromOwnedGoods(Owner owner, String nameGood) throws GoodNotInListException, NotFoundException {
+		try {
+			Good goodToFind = this.goodService.findGoodByName(nameGood);
+			if (goodToFind!=null) {
+				try {
+					if (owner.getListOwnedGood().contains(goodToFind)) {
+						return goodToFind;
+					} else {
+						throw new GoodNotInListException();
+					}
+				} catch (GoodNotInListException gnile) {
+				gnile.printStackTrace();
+				gnile.getMessage();
+				}
+			} else {
+				throw new NotFoundException("This good does not exist");
+			}
+		} catch (NotFoundException nfe) {
+			nfe.printStackTrace();
+			nfe.getMessage();
 		}
-		// TODO Exception if null ou if no contains in listOwner
-		return goodToFind;
+		return null;
 	}
 
 	@Override
-	public void addOwnedGoodToListOwnedGood(Owner owner, Good good) throws NotFoundException {
-		Good goodToAdd = this.goodService.getById(good.getId());
-		List<Good> listOwnedGood = owner.getListOwnedGood();
-		listOwnedGood.add(goodToAdd);
-		owner.setListOwnedGood(listOwnedGood);
-		 // TODO gérer ici un good already exist exception
-	}
-
-	@Override
-	public void deleteOwnedGoodFromListOwnedGood(Owner owner, Long goodid) throws NotFoundException {
-		Good goodToDelete = this.goodService.getById(goodid);
-		if (goodToDelete != null) {
+	public void addOwnedGoodToListOwnedGood(Owner owner, Good good) throws GoodAlreadyInListException {
+		try {
 			List<Good> listOwnedGood = owner.getListOwnedGood();
-			listOwnedGood.remove(goodToDelete);
-			owner.setListOwnedGood(listOwnedGood);
+			if (listOwnedGood.contains(good)) {
+				throw new GoodAlreadyInListException();
+			} else {
+				listOwnedGood.add(good);
+				owner.setListOwnedGood(listOwnedGood);
+			}
+		} catch (GoodAlreadyInListException gaile) {
+			gaile.printStackTrace();
+			gaile.getMessage();
 		}
-		else {
-		 // TODO gérer ici un good no exists exception
-		}	
+	}
+
+	@Override
+	public void deleteOwnedGoodFromListOwnedGood(Owner owner, Long goodid) throws GoodNotInListException, NotFoundException {
+		try {
+			Good goodToDelete = this.goodService.getById(goodid);
+			if (goodToDelete != null) {
+				try {
+					List<Good> listOwnedGood = owner.getListOwnedGood();
+					if (listOwnedGood.contains(goodToDelete)) {
+						listOwnedGood.remove(goodToDelete);
+						owner.setListOwnedGood(listOwnedGood);
+					} else {
+						throw new GoodNotInListException();
+					}
+				} catch (GoodNotInListException gnile) {
+					gnile.printStackTrace();
+					gnile.getMessage();
+				}
+			}
+			else {
+			 throw new NotFoundException("This good does not exist");
+			}	
+		} catch (NotFoundException nfe) {
+			nfe.printStackTrace();
+			nfe.getMessage();
+		}
 	}
 }

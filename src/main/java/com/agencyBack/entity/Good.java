@@ -206,5 +206,18 @@ public class Good extends Base {
 		this.typeOfGood = typeOfGood;
 	}
 
+	@Override
+    public boolean equals(final Object obj)
+    {
+        if ( obj == null || !(obj instanceof Good) ) 
+            return false;
+
+        Good good = (Good) obj;
+        
+        if (!good.id.equals(this.id)) 
+        	return false;
+
+        return true;
+    }
 
 }

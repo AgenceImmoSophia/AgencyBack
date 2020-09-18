@@ -16,6 +16,7 @@ public class Contract extends Base {
 	private Long id;
 	private float price;
 	private Date date;
+	private TypeOfContract typeofcontract;
 	@JsonBackReference("GoodToContract")
 	@OneToOne
 	private Good good;
