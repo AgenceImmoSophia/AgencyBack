@@ -48,6 +48,7 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 					}
 				} catch (GoodNotInListException gnile) {
 				gnile.printStackTrace();
+				gnile.getMessage();
 				}
 			} else {
 				throw new NotFoundException("This good does not exist");
@@ -71,6 +72,7 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 			}
 		} catch (GoodAlreadyInListException gaile) {
 			gaile.printStackTrace();
+			gaile.getMessage();
 		}
 	}
 
@@ -89,6 +91,7 @@ public class OwnerServiceImpl extends UserServiceImpl implements OwnerService {
 					}
 				} catch (GoodNotInListException gnile) {
 					gnile.printStackTrace();
+					gnile.getMessage();
 				}
 			}
 			else {

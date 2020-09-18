@@ -47,6 +47,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 			}
 		} catch (CodeAlreadyInListException caile) {
 			caile.printStackTrace();
+			caile.getMessage();
 		}
 	}
 
@@ -62,6 +63,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 			}
 		} catch (CodeNotInListException cnile) {
 			cnile.printStackTrace();
+			cnile.getMessage();
 		}
 	}
 
@@ -78,6 +80,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 					}
 				} catch (GoodNotInListException gnile) {
 					gnile.printStackTrace();
+					gnile.getMessage();
 				}
 			} else {
 				throw new NotFoundException("This good does not exist");
@@ -109,6 +112,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 			}
 		} catch (GoodAlreadyInListException gaile) {
 			gaile.printStackTrace();
+			gaile.getMessage();
 		}
 	}
 	
@@ -127,6 +131,7 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 					}
 				} catch (GoodNotInListException gnile) {
 					gnile.printStackTrace();
+					gnile.getMessage();
 				}
 			}
 			else {
