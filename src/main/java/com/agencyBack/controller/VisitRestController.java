@@ -22,10 +22,12 @@ public class VisitRestController {
 		return visitService.create(visit);
 	}
 	
-	@RequestMapping("/deletevisit/{id}")
-	public void deleteVisit(@PathVariable("id")Long id) throws NotFoundException {
-		visitService.deleteById(id);
-	}
+	// Can't delete with foreign key if the visit doesn't exist finally we should add attribute "cancel"
+	
+//	@RequestMapping("/deletevisit/{id}") 
+//	public void deleteVisit(@PathVariable("id")Long id) throws NotFoundException {
+//		visitService.deleteById(id);
+//	}
 	
 	@RequestMapping("/visit/{id}")
 	public Visit findVisitById(@PathVariable("id")Long id) throws NotFoundException {
