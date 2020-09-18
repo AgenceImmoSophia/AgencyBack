@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.agencyBack.entity.Client;
 import com.agencyBack.entity.Good;
+import com.agencyBack.exception.CodeAlreadyInListException;
+import com.agencyBack.exception.CodeNotInListException;
+import com.agencyBack.exception.GoodAlreadyInListException;
+import com.agencyBack.exception.GoodNotInListException;
 import com.agencyBack.repository.ClientRepository;
 import com.agencyBack.service.ClientService;
 import com.agencyBack.service.GoodService;
@@ -27,63 +31,107 @@ public class ClientServiceImpl extends UserServiceImpl implements ClientService 
 
 	//METHODS
 	@Override
-	public Iterable<String> findAllDesiredCode() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterable<String> findAllDesiredCode(Client client) {
+		return client.getListCode();
 	}
 
 	@Override
-	public void addDesiredCodeToListDesiredCode(Client client, String code) {
-		List<String> listDesiredCode = client.getListCode();
-		listDesiredCode.add(code);
-		client.setListCode(listDesiredCode);
-	}
-
-	@Override
-	public void deleteDesiredCodeFromListDesiredCode(Client client, String code) {
-		List<String> listDesiredCode = client.getListCode();
-		listDesiredCode.remove(code);
-		client.setListCode(listDesiredCode);
-	}
-
-	@Override
-	public Good findDesiredGoodsByName(Client client, String nameGood) {
-		Good goodToFind = this.goodService.findGoodByName(nameGood);
-		if (client.getListDesiredGood().contains(goodToFind)) {
-			return goodToFind;
+	public void addDesiredCodeToListDesiredCode(Client client, String code) throws CodeAlreadyInListException {
+		try {
+			List<String> listDesiredCode = client.getListCode();
+			if (listDesiredCode.contains(code)) {
+				throw new CodeAlreadyInListException();
+			} else { 
+				listDesiredCode.add(code);
+				client.setListCode(listDesiredCode);
+			}
+		} catch (CodeAlreadyInListException caile) {
+			throw caile;
 		}
-		// TODO Exception if null ou if no contains in listOwner
-		return goodToFind;
+	}
+
+	@Override
+	public void deleteDesiredCodeFromListDesiredCode(Client client, String code) throws CodeNotInListException {
+		try {
+			List<String> listDesiredCode = client.getListCode();
+			if (listDesiredCode.contains(code)) {
+				listDesiredCode.remove(code);
+				client.setListCode(listDesiredCode);
+			} else {
+				throw new CodeNotInListException();
+			}
+		} catch (CodeNotInListException cnile) {
+			throw cnile;
 		}
+	}
+
+	@Override
+	public Good findDesiredGoodsByName(Client client, String nameGood) throws GoodNotInListException, NotFoundException{
+		try {
+			Good goodToFind = this.goodService.findGoodByName(nameGood);
+			if (goodToFind!=null) {
+				try {
+					if (client.getListDesiredGood().contains(goodToFind)) {
+						return goodToFind;
+					} else {
+						throw new GoodNotInListException();
+					}
+				} catch (GoodNotInListException gnile) {
+					throw gnile;
+				}
+			} else {
+				throw new NotFoundException("This good does not exist");
+			}
+		} catch (NotFoundException nfe) {
+			throw nfe;
+		}
+	}
+		
+	
 	
 	@Override
-	public Iterable<Good> findAllDesiredGoods() {
-		// TODO Auto-generated method stub
-		return null;
+	public Iterable<Good> findAllDesiredGoods(Client client) {
+		return client.getListDesiredGood();
 	}
 
 
 	@Override
-	public void addDesiredGoodToListDesiredGood(Client client, Good good) throws NotFoundException {
-		Good goodToAdd = this.goodService.getById(good.getId());
-
-		List<Good> listDesiredGood = client.getListDesiredGood();
-		listDesiredGood.add(goodToAdd);
-		client.setListDesiredGood(listDesiredGood);
-		 // TODO gérer ici un good already exist exception
-	 }
-
-	@Override
-	public void deleteDesiredGoodFromListDesiredGood(Client client, Long goodid) throws NotFoundException {
-		Good goodToDelete = this.goodService.getById(goodid);
-
-		if (goodToDelete != null) {
+	public void addDesiredGoodToListDesiredGood(Client client, Good good) throws GoodAlreadyInListException {
+		try {
 			List<Good> listDesiredGood = client.getListDesiredGood();
-			listDesiredGood.remove(goodToDelete);
-			client.setListDesiredGood(listDesiredGood);
+			if (listDesiredGood.contains(good)) {
+				throw new GoodAlreadyInListException();
+			} else {
+				listDesiredGood.add(good);
+				client.setListDesiredGood(listDesiredGood);
+			}
+		} catch (GoodAlreadyInListException gaile) {
+			throw gaile;
 		}
-		else {
-		 // TODO gérer ici un good no exists exception
+	}
+	
+	@Override
+	public void deleteDesiredGoodFromListDesiredGood(Client client, Long goodid) throws GoodNotInListException, NotFoundException  {	
+		try {
+			Good goodToDelete = this.goodService.getById(goodid);
+			if (goodToDelete != null) {
+				try {
+					List<Good> listDesiredGood = client.getListDesiredGood();
+					if (listDesiredGood.contains(goodToDelete)) {
+						listDesiredGood.remove(goodToDelete);
+						client.setListDesiredGood(listDesiredGood);
+					} else {
+						throw new GoodNotInListException();
+					}
+				} catch (GoodNotInListException gnile) {
+					throw gnile;
+				}
+			}
+			else {
+			 throw new NotFoundException("This good does not exist");
+			}	
+		} catch (NotFoundException nfe) {
+				throw nfe;
 		}
 	}
 }

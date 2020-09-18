@@ -20,6 +20,10 @@ import com.agencyBack.entity.Client;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Users;
+import com.agencyBack.exception.CodeAlreadyInListException;
+import com.agencyBack.exception.CodeNotInListException;
+import com.agencyBack.exception.GoodAlreadyInListException;
+import com.agencyBack.exception.GoodNotInListException;
 import com.agencyBack.service.AddressService;
 import com.agencyBack.service.ClientService;
 import com.agencyBack.service.EstateAgentService;
@@ -156,7 +160,7 @@ public class UserRestController {
     }
 	
 	@GetMapping("{userid}/myGood/{namegood}")
-	public Good findGoodByNameFromList ( @PathVariable("userid") Long id, @PathVariable("namegood") String nameGood) throws NotFoundException {
+	public Good findGoodByNameFromList ( @PathVariable("userid") Long id, @PathVariable("namegood") String nameGood) throws NotFoundException, GoodNotInListException {
 		Users user = this.userServiceImpl.getById(id);
 		
 		if (user.getClass() == Owner.class) {
@@ -174,7 +178,7 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value = "{userid}/addGoodToList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void addGoodInList(@PathVariable("userid") Long id, @RequestBody Good good) throws NotFoundException {
+	public void addGoodToList(@PathVariable("userid") Long id, @RequestBody Good good) throws GoodAlreadyInListException, NotFoundException {
 		Users user = this.userServiceImpl.getById(id);
 		
 		if (user.getClass() == Owner.class) {
@@ -191,7 +195,7 @@ public class UserRestController {
 	}
 	
 	@DeleteMapping("{userid}/deleteGoodFromList/{goodid}")
-    public void deleteGoodList(@PathVariable("userid") Long userid, @PathVariable("goodid") Long goodid) throws NotFoundException {
+    public void deleteGoodFromList(@PathVariable("userid") Long userid, @PathVariable("goodid") Long goodid) throws GoodNotInListException, NotFoundException {
 		Users user = this.userServiceImpl.getById(userid);
 		if (user.getClass() == Owner.class) {
 			Owner owner = (Owner) user;
@@ -208,7 +212,7 @@ public class UserRestController {
 	
 
 	@PostMapping(value = "{clientid}/addCodeToList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public void addCodeToList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException {
+	public void addCodeToList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException, CodeAlreadyInListException {
 		Users user = this.userServiceImpl.getById(clientid);
 		if (user.getClass() == Client.class) {
 			Client client = (Client) user;
@@ -219,7 +223,7 @@ public class UserRestController {
 	}
 	
 	@PostMapping(value = "{clientid}/deleteCodeFromList", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteCodeFromList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException {
+    public void deleteCodeFromList(@PathVariable("clientid") Long clientid, @RequestBody String code) throws NotFoundException, CodeNotInListException {
 		Users user = this.userServiceImpl.getById(clientid);
 		if (user.getClass() == Client.class) {
 			Client client = (Client) user;
