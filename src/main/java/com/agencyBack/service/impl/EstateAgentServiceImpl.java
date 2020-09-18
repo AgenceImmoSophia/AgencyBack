@@ -2,7 +2,6 @@ package com.agencyBack.service.impl;
 
 import org.springframework.stereotype.Service;
 
-import com.agencyBack.entity.EstateAgent;
 import com.agencyBack.repository.EstateAgentRepository;
 import com.agencyBack.service.EstateAgentService;
 
@@ -11,7 +10,6 @@ public class EstateAgentServiceImpl extends UserServiceImpl implements EstateAge
 
 	public EstateAgentServiceImpl(EstateAgentRepository estateAgentRepository) {
 		super(estateAgentRepository);
-		// TODO Auto-generated constructor stub
 	}
 
 }
