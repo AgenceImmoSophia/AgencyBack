@@ -58,6 +58,8 @@ public class GoodServiceImpl extends BaseServiceImpl<Good> implements GoodServic
                 secondDigit=7;
             } else if (price>800 && price<=900){
                 secondDigit=8;
+            } else {
+                secondDigit = 9;
             }
         }
 
