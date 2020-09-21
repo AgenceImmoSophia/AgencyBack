@@ -2,9 +2,7 @@ package com.agencyBack.controller;
 
 import com.agencyBack.entity.Address;
 import com.agencyBack.entity.Good;
-import com.agencyBack.entity.Users;
 import com.agencyBack.exception.GoodAlreadyExistException;
-import com.agencyBack.exception.UserAlreadyExistException;
 import com.agencyBack.service.AddressService;
 import com.agencyBack.service.GoodService;
 import javassist.NotFoundException;
@@ -88,7 +86,7 @@ public class GoodRestController {
         return new ResponseEntity<>(good, HttpStatus.CREATED);
     }
     
-    @PostMapping(value = "good", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/editGood/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void editGood(@RequestBody Good good, @PathVariable("id") Long id) throws NotFoundException {
     	good.setId(id);
         	
