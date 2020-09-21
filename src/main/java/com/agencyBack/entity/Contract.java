@@ -16,7 +16,7 @@ public class Contract extends Base {
 	private Long id;
 	private float price;
 	private Date date;
-	private TypeOfContract typeofcontract;
+	private TypeOfContract typeOfContract;
 	@JsonBackReference("GoodToContract")
 	@OneToOne
 	private Good good;
@@ -86,5 +86,11 @@ public class Contract extends Base {
 		this.client = client;
 	}
 
+	public TypeOfContract getTypeOfContract() {
+		return typeOfContract;
+	}
 
+	public void setTypeOfContract(TypeOfContract typeOfContract) {
+		this.typeOfContract = typeOfContract;
+	}
 }
