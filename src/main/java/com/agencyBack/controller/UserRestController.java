@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.agencyBack.entity.Address;
 import com.agencyBack.entity.Client;
+import com.agencyBack.entity.EstateAgent;
 import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Users;
@@ -61,7 +62,12 @@ public class UserRestController {
         Users UserToFind = this.userServiceImpl.getById(id);
         return UserToFind;
     }
-
+	
+	@PostMapping(value = "/estateagent", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Users findEstateAgentByUsername(@RequestBody String username) throws NotFoundException {
+        EstateAgent estateAgentToFind = this.estateAgentService.findEstateAgentByUsername(username);
+        return estateAgentToFind;
+    }
     
     @GetMapping("/allUsers")
     public Iterable<Users> findAllUsers() {
