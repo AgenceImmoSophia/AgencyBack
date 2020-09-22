@@ -4,6 +4,9 @@ import com.agencyBack.entity.Good;
 import com.agencyBack.entity.Status;
 import com.agencyBack.repository.GoodRepository;
 import com.agencyBack.service.GoodService;
+
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,6 +23,12 @@ public class GoodServiceImpl extends BaseServiceImpl<Good> implements GoodServic
     public Good findGoodByName(String name) {
         Good foundGood= this.goodRepository.findGoodByNameOfGood(name);
         return foundGood;
+    }
+    
+    @Override
+    public List<Good> findAllByOrderByIdAsc() {
+    	List<Good> listOfGoods = this.goodRepository.findAllByOrderByIdAsc();
+    	return listOfGoods;
     }
 
     @Override

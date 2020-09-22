@@ -139,36 +139,47 @@ public class AgencyBackApplication {
     	good.setContract(contract);
     	goodService.create(good);
 
-    	Good good2 = new Good();
-    	good2.setId(2l);
-    	good2.setAddress(address2);
-    	goodService.create(good2);
 
-    	List<Good> listDesiredGood = client.getListDesiredGood();
-    	listDesiredGood.add(good);
-    	listDesiredGood.add(good2);
-    	client.setListDesiredGood(listDesiredGood);
-    	List<String> listCode = client.getListCode();
-    	listCode.add("1515");
-    	client.setListCode(listCode);
-    	cs.create(client);
+
+//    	List<Good> listDesiredGood = client.getListDesiredGood();
+//    	listDesiredGood.add(good);
+//    	listDesiredGood.add(good2);
+//    	client.setListDesiredGood(listDesiredGood);
+//    	List<String> listCode = client.getListCode();
+//    	listCode.add("1515");
+//    	client.setListCode(listCode);
+//    	cs.create(client);
 
     	List<Good> listOwnedGood = owner.getListOwnedGood();
     	listOwnedGood.add(good);
     	owner.setListOwnedGood(listOwnedGood);
     	os.create(owner);
 
-    	Visit visit = new Visit();
-      	visit.setId(1l);
-      	visit.setGood(good);
-      	visit.setClient(client);
-      	visit.setEstateAgent(agent);
-      	visitService.create(visit);
+//    	Visit visit = new Visit();
+//      	visit.setId(1l);
+//      	visit.setGood(good);
+//      	visit.setClient(client);
+//      	visit.setEstateAgent(agent);
+//      	visitService.create(visit);
 
-      	List<Visit> listVisit = good.getClientVisit();
-      	listVisit.add(visit);
-      	good.setClientVisit(listVisit);
+//      	List<Visit> listVisit = good.getClientVisit();
+//      	listVisit.add(visit);
+//      	good.setClientVisit(listVisit);
+//      	goodService.create(good);
+      	
+      	good.setArea(100f);
+      	good.setTypeOfGood(TypeOfGood.HOUSE);
+      	good.setStatus(Status.TOSELL);
+      	good.setAddress(address3);
       	goodService.create(good);
+      	goodService.generateCode(good);
+      	goodService.create(good);
+      	
+    	Good good2 = new Good();
+    	good2.setId(2l);
+    	good2.setAddress(address2);
+    	goodService.create(good2);
+      	
 
       };
   }

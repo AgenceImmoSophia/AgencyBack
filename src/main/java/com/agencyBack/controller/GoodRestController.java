@@ -35,7 +35,7 @@ public class GoodRestController {
 
     @GetMapping(value = "/goods", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Good> findAllGoods(){
-        return this.goodService.getAll();
+        return this.goodService.findAllByOrderByIdAsc();
     }
 
     @PostMapping(value = "good", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
