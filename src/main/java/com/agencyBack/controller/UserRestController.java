@@ -1,7 +1,11 @@
 package com.agencyBack.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.agencyBack.repository.ClientRepository;
+import com.agencyBack.repository.EstateAgentRepository;
+import com.agencyBack.repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,6 +53,12 @@ public class UserRestController {
 	private EstateAgentService estateAgentService;
 	@Autowired
 	private AddressService addressService;
+	@Autowired
+	private ClientRepository clientRepository;
+	@Autowired
+	private EstateAgentRepository estateAgentRepository;
+	@Autowired
+	private OwnerRepository ownerRepository;
 	
 	public UserRestController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
@@ -63,9 +73,18 @@ public class UserRestController {
     }
 
     
-    @GetMapping("/allUsers")
-    public Iterable<Users> findAllUsers() {
-        return this.userServiceImpl.getAll();
+    @GetMapping("/allUsers/{type}")
+    public List<Users> findAllUsers(@PathVariable String type) {
+		List list = new ArrayList();
+		if (type.equals("all"))
+			list = this.userServiceImpl.getAll();
+		if(type.equals("client"))
+			list = this.clientRepository.getAll();
+		if(type.equals("owner"))
+			list = this.ownerRepository.getAll();
+		if(type.equals("agent"))
+			list = this.estateAgentRepository.getAll();
+        return list;
     }
 	
 	
