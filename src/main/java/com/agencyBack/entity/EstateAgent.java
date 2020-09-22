@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 @Entity
-@DiscriminatorValue(value="EstateAgent")
 @JsonTypeName("EstateAgent")
 public class EstateAgent extends Users {
 
@@ -17,6 +16,7 @@ public class EstateAgent extends Users {
 	// CONSTRUCTORS
 	public EstateAgent() {
 		super();
+		this.role = "EstateAgent";
 	}
 
 	//METHODS

@@ -19,8 +19,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name="ROLE", discriminatorType=DiscriminatorType.STRING)
-@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.PROPERTY, property = "role")
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = As.EXISTING_PROPERTY, visible = true, property = "role")
 @JsonSubTypes({
     @JsonSubTypes.Type(name = "Client", value = Client.class),
     @JsonSubTypes.Type(name = "Owner", value = Owner.class),
@@ -29,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 public class Users extends Base{
 	
 	//ATTRIBUTES
+	protected String role;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -36,13 +36,20 @@ public class Users extends Base{
 	private String phoneNumberPers;
 	@OneToOne
 	private Address address;
-	
-	
+
 	// CONSTRUCTORS
     public Users() {
     }
     
     //METHODS
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+    
 	@Override
    	public Long getId() {
 		return id;

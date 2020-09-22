@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue(value="Owner")
 @JsonTypeName("Owner")
 public class Owner extends Users {
 
@@ -25,6 +24,7 @@ public class Owner extends Users {
 	// CONSTRUCTORS
 	public Owner() {
 		super();
+		this.role = "Owner";
 	}
 
 

@@ -13,7 +13,6 @@ import java.util.List;
 
 
 @Entity
-@DiscriminatorValue(value="Client")
 @JsonTypeName("Client")
 public class Client extends Users {
 
@@ -27,6 +26,7 @@ public class Client extends Users {
 	// CONSTRUCTORS
 	public Client() {
 		super();
+		this.role = "Client";
 	}
 
 	//METHODS
