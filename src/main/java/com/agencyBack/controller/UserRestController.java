@@ -63,7 +63,7 @@ public class UserRestController {
         return UserToFind;
     }
 	
-	@PostMapping(value = "/estateagent", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping("/estateagent")
     public Users findEstateAgentByUsername(@RequestBody String username) throws NotFoundException {
         EstateAgent estateAgentToFind = this.estateAgentService.findEstateAgentByUsername(username);
         return estateAgentToFind;
