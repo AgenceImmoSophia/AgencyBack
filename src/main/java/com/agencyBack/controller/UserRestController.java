@@ -63,8 +63,8 @@ public class UserRestController {
         return UserToFind;
     }
 	
-	@RequestMapping("/estateagent")
-    public EstateAgent findEstateAgentByUsername(@RequestBody String username) throws NotFoundException {
+	@GetMapping("/estateagent/{username}")
+    public EstateAgent findEstateAgentByUsername(@PathVariable ("username") String username) throws NotFoundException {
         EstateAgent estateAgentToFind = this.estateAgentService.findEstateAgentByUsername(username);
         return estateAgentToFind;
     }
