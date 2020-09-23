@@ -1,5 +1,7 @@
 package com.agencyBack.controller;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +56,6 @@ public class UserRestController {
 	public UserRestController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
 	}
-	
-
 	
 	@GetMapping("/{id}")
     public Users findUserById(@PathVariable("id") Long id) throws NotFoundException {
@@ -238,4 +238,20 @@ public class UserRestController {
 		}
 		// Gérer exception 
 	}
+	
+	@GetMapping("/findClientsInterestedInGood")
+	public Iterable<Users> findClientsInterestedInGood(@RequestBody Good good){
+		List<Users> listOfClientsInterestedInGood = new ArrayList<Users>();
+		List<Users> listOfAllUsers = this.userServiceImpl.getAll();
+		for (int i = 0; i < listOfAllUsers.size(); i++) {
+			if (listOfAllUsers.get(i).getClass() == Client.class) {
+				Client client = (Client) listOfAllUsers.get(i);
+				if (client.getListDesiredGood().contains(good)) {
+					listOfClientsInterestedInGood.add(client);
+				}
+			}
+	      }
+		return listOfClientsInterestedInGood;
+	}
+	
 }
