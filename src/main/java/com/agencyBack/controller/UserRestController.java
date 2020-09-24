@@ -31,6 +31,7 @@ import com.agencyBack.exception.UserAlreadyExistException;
 import com.agencyBack.service.AddressService;
 import com.agencyBack.service.ClientService;
 import com.agencyBack.service.EstateAgentService;
+import com.agencyBack.service.GoodService;
 import com.agencyBack.service.OwnerService;
 import com.agencyBack.service.impl.UserServiceImpl;
 
@@ -52,6 +53,8 @@ public class UserRestController {
 	private EstateAgentService estateAgentService;
 	@Autowired
 	private AddressService addressService;
+	@Autowired
+	private GoodService goodService;
 	
 	public UserRestController(UserServiceImpl userServiceImpl) {
 		this.userServiceImpl = userServiceImpl;
@@ -239,8 +242,9 @@ public class UserRestController {
 		// Gérer exception 
 	}
 	
-	@GetMapping("/findClientsInterestedInGood")
-	public Iterable<Users> findClientsInterestedInGood(@RequestBody Good good){
+	@GetMapping("/findClientsInterestedInGood/{id}")
+	public Iterable<Users> findClientsInterestedInGood(@PathVariable("id") Long id) throws NotFoundException{
+		Good good = goodService.getById(id);
 		List<Users> listOfClientsInterestedInGood = new ArrayList<Users>();
 		List<Users> listOfAllUsers = this.userServiceImpl.getAll();
 		for (int i = 0; i < listOfAllUsers.size(); i++) {
