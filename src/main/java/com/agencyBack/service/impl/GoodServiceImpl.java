@@ -1,11 +1,15 @@
 package com.agencyBack.service.impl;
 
 import com.agencyBack.entity.Good;
+import com.agencyBack.entity.Owner;
 import com.agencyBack.entity.Status;
+import com.agencyBack.entity.Users;
 import com.agencyBack.repository.GoodRepository;
+import com.agencyBack.repository.UserRepository;
 import com.agencyBack.service.GoodService;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -13,6 +17,7 @@ import org.springframework.stereotype.Service;
 public class GoodServiceImpl extends BaseServiceImpl<Good> implements GoodService {
 
     private GoodRepository goodRepository;
+    private UserRepository userRepository;
 
     public GoodServiceImpl(GoodRepository goodRepository) {
         super(goodRepository, new Good());
@@ -30,6 +35,12 @@ public class GoodServiceImpl extends BaseServiceImpl<Good> implements GoodServic
     	List<Good> listOfGoods = this.goodRepository.findAllByOrderByIdAsc();
     	return listOfGoods;
     }
+    
+    @Override
+	public List<Good> findGoodByOwner(Owner owner) {
+    	List<Good> listOfGoodsByOwner = this.goodRepository.findGoodByOwner(owner);
+		return listOfGoodsByOwner;
+	}
 
     @Override
     public void generateCode(Good good){
@@ -93,4 +104,5 @@ public class GoodServiceImpl extends BaseServiceImpl<Good> implements GoodServic
 
         good.setCode(code);
     }
+
 }
