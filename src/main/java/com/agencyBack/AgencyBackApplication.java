@@ -177,6 +177,7 @@ public class AgencyBackApplication {
       	
     	Good good2 = new Good();
     	good2.setId(2l);
+    	good2.setNameOfGood("name de good");
     	good2.setAddress(address2);
     	goodService.create(good2);
       	

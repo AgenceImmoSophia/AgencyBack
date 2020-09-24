@@ -1,7 +1,5 @@
 package com.agencyBack.entity;
 
-import javax.persistence.CascadeType;
-import javax.persistence.DiscriminatorValue;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -19,7 +17,7 @@ public class Client extends Users {
 	//ATTRIBUTES
 	@ElementCollection
 	private List<String> listCode = new ArrayList<String>();
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany
 	private List<Good> listDesiredGood = new ArrayList<Good>();
 
 
