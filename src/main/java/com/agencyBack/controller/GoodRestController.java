@@ -47,7 +47,7 @@ public class GoodRestController {
     @GetMapping(value = "/goods/{ownerId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Good> findGoodsByOwnerId(@PathVariable("ownerId") Long ownerId) throws NotFoundException{
     	Owner ownerToFound = (Owner) this.ownerService.getById(ownerId);
-        return (List<Good>) this.goodService.findGoodByOwner(ownerToFound);
+        return this.goodService.findGoodByOwner(ownerToFound);
     }
 
     @PostMapping(value = "good", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
