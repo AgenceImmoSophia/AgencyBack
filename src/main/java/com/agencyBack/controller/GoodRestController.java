@@ -2,9 +2,12 @@ package com.agencyBack.controller;
 
 import com.agencyBack.entity.Address;
 import com.agencyBack.entity.Good;
+import com.agencyBack.entity.Owner;
 import com.agencyBack.exception.GoodAlreadyExistException;
 import com.agencyBack.service.AddressService;
 import com.agencyBack.service.GoodService;
+import com.agencyBack.service.OwnerService;
+
 import javassist.NotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +25,9 @@ public class GoodRestController {
     private final GoodService goodService;
     
     @Autowired
+    private OwnerService ownerService;
+    
+    @Autowired
 	private AddressService addressService;
 
     public GoodRestController (GoodService goodService){
@@ -36,6 +42,12 @@ public class GoodRestController {
     @GetMapping(value = "/goods", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Good> findAllGoods(){
         return this.goodService.findAllByOrderByIdAsc();
+    }
+    
+    @GetMapping(value = "/goods/{ownerId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Good> findGoodsByOwnerId(@PathVariable("ownerId") Long ownerId) throws NotFoundException{
+    	Owner ownerToFound = (Owner) this.ownerService.getById(ownerId);
+        return (List<Good>) this.goodService.findGoodByOwner(ownerToFound);
     }
 
     @PostMapping(value = "good", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
