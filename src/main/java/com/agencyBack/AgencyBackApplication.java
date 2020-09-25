@@ -141,14 +141,13 @@ public class AgencyBackApplication {
 
 
 
-//    	List<Good> listDesiredGood = client.getListDesiredGood();
-//    	listDesiredGood.add(good);
-//    	listDesiredGood.add(good2);
-//    	client.setListDesiredGood(listDesiredGood);
-//    	List<String> listCode = client.getListCode();
-//    	listCode.add("1515");
-//    	client.setListCode(listCode);
-//    	cs.create(client);
+    	List<Good> listDesiredGood = client.getListDesiredGood();
+    	listDesiredGood.add(good);
+    	client.setListDesiredGood(listDesiredGood);
+    	List<String> listCode = client.getListCode();
+    	listCode.add("1515");
+    	client.setListCode(listCode);
+    	cs.create(client);
 
     	List<Good> listOwnedGood = owner.getListOwnedGood();
     	listOwnedGood.add(good);
