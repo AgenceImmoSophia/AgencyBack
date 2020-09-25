@@ -2,7 +2,7 @@ package com.agencyBack.entity;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -17,7 +17,7 @@ public class Client extends Users {
 	//ATTRIBUTES
 	@ElementCollection
 	private List<String> listCode = new ArrayList<String>();
-	@OneToMany
+	@ManyToMany
 	private List<Good> listDesiredGood = new ArrayList<Good>();
 
 
